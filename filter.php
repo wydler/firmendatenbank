@@ -1,71 +1,98 @@
 <div id="filter">
-	<form action="index.php" method="get">
 	<div class="main">
 	<p class="head">Studienschwerpunkte</p>
 	<p>
+		<ul>
 		<?php
-			foreach(getSchwerpunkte() as $row)
+			foreach($page->getSchwerpunkte() as $row)
 			{
-				echo '<input type="checkbox" name="schwerpunkte[]" value="'.strtolower($row['name']).'" '.inArray($validGET['schwerpunkte'], $row['name']).'> '.$row['name'].' ('.$row['count'].')<br />';
+				$url = "index.php?".http_build_query($page->validGET);
+				$name = urlencode(strtolower($row['name']));
+				if(in_array(strtolower($row['name']), $page->validGET['schwerpunkte']))
+				{
+					$url .= "&removeschwerpunkt=$name";
+					$class = "active";
+				}
+				else
+				{
+					$url .= "&addschwerpunkt=$name";
+					$class = "";
+				}
+				echo "<li class=\"$class\"><a href=\"$url\">{$row['name']} ({$row['count']})</a></li>";
 			}
 		?>
+		</ul>
 	</p>
 	</div>
 	<div class="main">
 	<p class="head">Bewertung</p>
-	<?php 
-		if(array_key_exists('rating', $_GET))
-		{
-			$rating = validRating($validGET['rating']);
-		}
-		else 
-		{
-			$rating = 0;
-		}
-	?>
-	<?php
-		for($i=4; $i >= 0; $i--)
-		{
-			if($rating==$i)
+		<ul>
+		<?php
+			for($i=4; $i >= 0; $i--)
 			{
-				$checked = "checked";
-			}
-			else
-			{
-				$checked = "";
-			}
-			echo '<input type="radio" name="rating" id="rating'.$i.'" value="'.$i.'" '.$checked.' class="radio">';
-			echo '<label for="rating'.$i.'">';
-			for($k=1; $k<=5; $k++)
-			{
-				if($k <= $i)
+				$url = "index.php?".http_build_query($page->validGET)."&rating=".$i;
+				if($page->validGET['rating'] == $i)
 				{
-					echo '<img src="./img/star.png" />';
+					$class = "active";
 				}
 				else
 				{
-					echo '<img src="./img/star_bw.png" />';
+					$class = "";
 				}
+				
+				echo "<li class=\"$class\"><a href=\"$url\">";
+				for($k=1; $k<=5; $k++)
+				{
+					if($k <= $i)
+					{
+						echo '<img src="./img/star.png" />';
+					}
+					else
+					{
+						echo '<img src="./img/star_bw.png" />';
+					}
+				}
+				echo '  & mehr (2)</a></li>';
 			}
-			echo '  & mehr (2) </label>';
-			echo '<br />';
-		}
-	?>
+		?>
+		</ul>
 	</div>
 	<div class="main">
 	<p class="head">Themengebiete</p>
 	<p>
+		<ul>
 		<?php
-			foreach(getThemen() as $row)
+			foreach($page->getThemenTOP() as $row)
 			{
-				echo '<input type="checkbox" name="themen[]" value="'.strtolower($row['name']).'" '.inArray($validGET['themen'], $row['name']).'> '.$row['name'].' ('.$row['count'].')<br />';
+				$url = "index.php?".http_build_query($page->validGET);
+				$name = urlencode(strtolower($row['name']));
+				if(in_array(strtolower($row['name']), $page->validGET['themen']))
+				{
+					$url .= "&removethema=$name";
+					$class = "active";
+				}
+				else
+				{
+					$url .= "&addthema=$name";
+					$class = "";
+				}
+				echo "<li class=\"$class\"><a href=\"$url\">{$row['name']} ({$row['count']})</a></li>";
+			}
+		?>
+		</ul>
+		<?php
+			if($page->validGET['showallthemen'] == 1)
+			{
+				$url = "index.php?".http_build_query($page->validGET)."&showallthemen=0";
+				echo "<a href=\"$url\" style=\"text-align:right\">Top10 anzeigen</a>";
+			}
+			else
+			{
+				$url = "index.php?".http_build_query($page->validGET)."&showallthemen=1";
+				echo "<a href=\"$url\" style=\"text-align:right\">Alle anzeigen (101)</a>";
 			}
 		?>
 	</p>
 	</div>
-	<p class="buttonrow">
-		<input type="reset" name="aktion" value="Zur&uuml;cksetzen"> 
-		<input type="submit" name="aktion" value="Filter">
-	</p>
-	</form>
+	<a href="index.php">Reset</a>
 </div>

@@ -142,16 +142,32 @@ h3 {
 	padding: 5px 10px;
 	margin-bottom: 5px;
 }
+
+#filter .head a {
+	color: #fff;
+}
+
 #filter a {
 	color: #000;
 	padding: 2px 10px;
-	display: block;
+	display: inline-block;
 	text-align: left;
 	text-decoration: none;
 }
+
 #filter a:hover {
-	text-decoration: none;
+	text-decoration: underline;
 }
+
+#filter a:hover img {
+	margin-bottom: -2px;
+	border-bottom: 1px solid #000;
+}
+
+#filter a.active {
+	font-weight: bold;
+}
+
 #filter p {
 	line-height: 1.5em;
 }
