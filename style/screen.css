@@ -129,6 +129,7 @@ h3 {
 	border-right: 1px solid #ccc;
 }
 #filter .main {
+	margin-top: 1.0em;
 	margin-bottom: 1.0em;
 	font-size: 0.8em;
 	line-height: 1.2em;
@@ -145,6 +146,7 @@ h3 {
 
 #filter .head a {
 	color: #fff;
+	padding: 0px;
 }
 
 #filter a {
@@ -175,6 +177,11 @@ h3 {
 #filter img {
 	height: 1.0em;
 	margin-bottom: -1px;
+}
+
+#filter .hint {
+	font-size: 0.8em;
+	text-align: right;
 }
 
 #content {
@@ -324,4 +331,9 @@ table.overview tbody img {
 #filter input[type="radio"]:checked + label {
 	font-weight: bold;
 	color: #000;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid #ddd;
 }

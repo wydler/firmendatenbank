@@ -29,7 +29,43 @@
 				return 0;
 			}
 		}
-	
+		
+		function addBewertung()
+		{
+			$bewertung = $_POST['rating'];
+			$kommentar = $_POST['text'];
+			$fid = $this->validGET['fid'];
+			echo "arraykeyexists";
+			if($bewertung >= 0 && $bewertung <= 5 && strlen($kommentar) <= 50)
+			{
+				echo "query";
+				mysql_query("INSERT INTO bewertungen (bewertung, kommentar, gehoertzu_fid_fk) VALUES ($bewertung, '{$kommentar}', $fid)") or die(mysql_error());
+				echo "afterquery";
+				
+				$array = array();
+				$result = mysql_query("SELECT count(bewertung) as cnt, avg(bewertung) as avg FROM bewertungen WHERE gehoertzu_fid_fk = $fid") or die(mysql_error());
+				while($row = mysql_fetch_assoc($result))
+				{
+					$array = $row;
+				}
+				
+				mysql_query("UPDATE firmen SET bew_cnt = {$array['cnt']} WHERE fid = $fid") or die(mysql_error());
+				mysql_query("UPDATE firmen SET bew_avg = {$array['avg']} WHERE fid = $fid") or die(mysql_error());
+			}
+		}
+		
+		function getBewertungen($fid)
+		{
+			$array = array();
+			$result = mysql_query("SELECT * FROM bewertungen WHERE gehoertzu_fid_fk = $fid ORDER BY bid DESC") or die(mysql_error());
+			while($row = mysql_fetch_assoc($result))
+			{
+				array_push($array, $row);
+			}
+		
+			return $array;
+		}
+		
 		function getFirmen() 
 		{
 			static $array;
@@ -56,8 +92,20 @@
 			return $row;
 		}
 	
-		function getThemen() 
+		function getThemen($fid = NULL) 
 		{
+			if(isset($fid))
+			{
+				$array = array();
+				$result = mysql_query("SELECT * FROM themen LEFT JOIN behandelt ON tid=tid_fk WHERE fid_fk=$fid") or die(mysql_error());
+				while($row = mysql_fetch_array($result))
+				{
+					array_push($array, $row);
+				}
+			
+				return $array;
+			}
+			
 			static $array;
 			if(isset($array)) {
 				return $array;
@@ -74,7 +122,7 @@
 		
 			return $array;
 		}
-		
+
 		function getThemenTOP($limit = 3) 
 		{
 			static $array;
@@ -101,8 +149,20 @@
 			return $array;
 		}
 	
-		function getSchwerpunkte() 
+		function getSchwerpunkte($fid = NULL) 
 		{
+			if(isset($fid))
+			{
+				$array = array();
+				$result = mysql_query("SELECT * FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk WHERE fid_fk=$fid") or die(mysql_error());
+				while($row = mysql_fetch_array($result))
+				{
+					array_push($array, $row);
+				}
+			
+				return $array;
+			}
+			
 			static $array;
 			if(isset($array))
 			{
@@ -119,30 +179,6 @@
 			return $array;
 		}
 		
-		function getSchwerpunkteFID($fid)
-		{
-			$array = array();
-			$result = mysql_query("SELECT * FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk WHERE fid_fk=$fid") or die(mysql_error());
-			while($row = mysql_fetch_array($result))
-			{
-				array_push($array, $row);
-			}
-			
-			return $array;
-		}
-		
-		function getThemenFID($fid)
-		{
-			$array = array();
-			$result = mysql_query("SELECT * FROM themen LEFT JOIN behandelt ON tid=tid_fk WHERE fid_fk=$fid") or die(mysql_error());
-			while($row = mysql_fetch_array($result))
-			{
-				array_push($array, $row);
-			}
-			
-			return $array;
-		}
-	
 		function createURL($page) 
 		{
 			$url = $_SERVER[QUERY_STRING];

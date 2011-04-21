@@ -84,12 +84,12 @@
 			if($page->validGET['showallthemen'] == 1)
 			{
 				$url = "index.php?".http_build_query($page->validGET)."&showallthemen=0";
-				echo "<a href=\"$url\" style=\"text-align:right\">Top10 anzeigen</a>";
+				echo "<div class=\"hint\"><a href=\"$url\">Top10 anzeigen</a></div>";
 			}
 			else
 			{
 				$url = "index.php?".http_build_query($page->validGET)."&showallthemen=1";
-				echo "<a href=\"$url\" style=\"text-align:right\">Alle anzeigen (101)</a>";
+				echo "<div class=\"hint\"><a href=\"$url\">Alle anzeigen (101)</a></div>";
 			}
 		?>
 	</p>

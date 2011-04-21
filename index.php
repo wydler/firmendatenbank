@@ -13,10 +13,10 @@
 	include 'index.inc.php';
 	$page = new Page();
 ?>
-<div id="debug" class="clear">
+<!--<div id="debug" class="clear">
 	<?php print_r($_GET); ?><br />
 	<?php print_r($page->validGET) ?>
-</div>
+</div>-->
 <div id="container">
 	<div id="banner" class="clear">
 		<h1>Firmendatenbank</h1>
