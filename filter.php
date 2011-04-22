@@ -94,5 +94,5 @@
 		?>
 	</p>
 	</div>
-	<a href="index.php">Reset</a>
+	<a href="index.php?clearfilter=1">Reset</a>
 </div>

@@ -11,11 +11,26 @@
 			mysql_connect($dbhost,$dbuser,$dbpass) or die(mysql_error());
 			mysql_select_db($dbname) or die(mysql_error());
 			
-			$this->validGET = $this->validateGET();
+			session_start();
+			
+			if(isset($_SESSION) && (count($_GET) == 0))
+			{
+				$this->validGET = $_SESSION;
+			}
+			else
+			{
+				$this->validGET = $this->validateGET();
+			}
 		}
 		
 		function __destruct() {
 			mysql_close();
+		}
+		
+		function clearFilter()
+		{
+			$_SESSION = array();
+			$this->validGET = array();
 		}
 		
 		function validRating($num)
@@ -35,12 +50,9 @@
 			$bewertung = $_POST['rating'];
 			$kommentar = $_POST['text'];
 			$fid = $this->validGET['fid'];
-			echo "arraykeyexists";
 			if($bewertung >= 0 && $bewertung <= 5 && strlen($kommentar) <= 50)
 			{
-				echo "query";
 				mysql_query("INSERT INTO bewertungen (bewertung, kommentar, gehoertzu_fid_fk) VALUES ($bewertung, '{$kommentar}', $fid)") or die(mysql_error());
-				echo "afterquery";
 				
 				$array = array();
 				$result = mysql_query("SELECT count(bewertung) as cnt, avg(bewertung) as avg FROM bewertungen WHERE gehoertzu_fid_fk = $fid") or die(mysql_error());
@@ -51,10 +63,16 @@
 				
 				mysql_query("UPDATE firmen SET bew_cnt = {$array['cnt']} WHERE fid = $fid") or die(mysql_error());
 				mysql_query("UPDATE firmen SET bew_avg = {$array['avg']} WHERE fid = $fid") or die(mysql_error());
+				
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
 			}
 		}
 		
-		function getBewertungen($fid)
+		function getBewertungen($fid, $limit = NULL)
 		{
 			$array = array();
 			$result = mysql_query("SELECT * FROM bewertungen WHERE gehoertzu_fid_fk = $fid ORDER BY bid DESC") or die(mysql_error());
@@ -193,7 +211,15 @@
 		
 			if(array_key_exists("fid", $get))
 			{
-				$validGET['fid'] = $get['fid'];
+				$allFirmen = $this->getFirmen();
+				foreach($allFirmen as $firma)
+				{
+					if($firma['fid'] == $get['fid'])
+					{
+						$_SESSION['fid'] = $get['fid'];
+						$validGET['fid'] = $get['fid'];
+					}
+				}
 			}
 			
 			if(array_key_exists("schwerpunkte", $get) || array_key_exists("addschwerpunkt", $get))
@@ -228,6 +254,7 @@
 				}
 				if(count($validSchwerpunkte) > 0)
 				{
+					$_SESSION['schwerpunkte'] = $validSchwerpunkte;
 					$validGET['schwerpunkte'] = $validSchwerpunkte;
 				}
 			}
@@ -264,17 +291,20 @@
 				}
 				if(count($validThemen) > 0)
 				{
+					$_SESSION['themen'] = $validThemen;
 					$validGET['themen'] = $validThemen;
 				}
 			}
 		
 			if(array_key_exists("rating", $get))
 			{
+				$_SESSION['rating'] = $this->validRating($get['rating']);
 				$validGET['rating'] = $this->validRating($get['rating']);
 			}
 			
 			if(array_key_exists("showallthemen", $get))
 			{
+				$_SESSION['showallthemen'] = $_GET['showallthemen'];
 				$validGET['showallthemen'] = $_GET['showallthemen'];
 			}
 			

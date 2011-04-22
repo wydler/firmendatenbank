@@ -12,11 +12,18 @@
 <?php 
 	include 'index.inc.php';
 	$page = new Page();
+	
+	if($_GET['clearfilter'] == 1)
+	{
+		$page->clearFilter();
+	}
 ?>
-<!--<div id="debug" class="clear">
+<div id="debug" class="clear">
 	<?php print_r($_GET); ?><br />
-	<?php print_r($page->validGET) ?>
-</div>-->
+	<?php print_r($page->validGET) ?><br />
+	<?php print_r($_SESSION) ?><br />
+	<?php echo session_id(); ?>
+</div>
 <div id="container">
 	<div id="banner" class="clear">
 		<h1>Firmendatenbank</h1>

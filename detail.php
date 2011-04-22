@@ -13,9 +13,14 @@
 	include 'index.inc.php';
 	$page = new Page();
 	
+	if(!array_key_exists("fid", $page->validGET))
+	{
+		header('Location: index.php');
+	}
+	
 	if(array_key_exists("submit_rating", $_POST))
 	{
-		$page->addBewertung();
+		$result = $page->addBewertung();
 	}
 ?>
 <div id="container">
@@ -91,7 +96,9 @@
 				</div>
 				<br />
 				<h3>Einzelbewertungen</h3>
-				<?php $bewertungen = $page->getBewertungen($page->validGET['fid']) ?>
+				<?php
+					$bewertungen = $page->getBewertungen($page->validGET['fid']);
+				?>
 				<?php 
 					foreach($bewertungen as $bewertung)
 					{
@@ -121,6 +128,7 @@
 					</select>
 					 (0 = schlecht, 5 = gut)</p>
 					<p><textarea name="text" rows="5" maxlength="50" style="width:98%"></textarea></p>
+					<div class="hint">maximal 50 Zeichen.</div>
 					<p class="buttonrow">
 						<input type="reset" name="reset_rating" value="Zur&uuml;cksetzen"> 
 						<input type="submit" name="submit_rating" value="Absenden">

@@ -306,6 +306,12 @@ table.overview tbody img {
 	line-height: 1.5em;
 }
 
+#column_right .hint {
+	font-size: 0.7em;
+	text-align: right;
+	margin-bottom: 10px;
+}
+
 .comment_box {s
 	border: 1px solid #eee;
 	padding: 3px;
@@ -337,3 +343,4 @@ hr {
 	border: 0;
 	border-top: 1px solid #ddd;
 }
+
