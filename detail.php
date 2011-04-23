@@ -7,6 +7,20 @@
 	<meta name="description" content="Firmendatenbank der Hochschule Ravensburg-Weingarten." />
 	<meta name="keywords" content="firmen,datenbank,praktikum" />
 	<link rel="stylesheet" href="./style/screen.css" media="screen" />
+	<script src="js/jquery-1.5.2.min.js"></script>
+	<script src="js/ajax.js"></script>
+	<script language="javascript">
+		$(document).ready(function() {
+			$('.comment_box:gt(5)').hide();
+		});
+		function countChars() {
+			var len = 50 - $("#comment_text").val().length;
+			if(len == 50)
+				$("#counter").html("Hinweis: maximal 50 Zeichen.");
+			else
+				$("#counter").html("noch " + len + " Zeichen übrig.");
+		}
+	</script>
 </head>
 <body>
 <?php 
@@ -18,7 +32,7 @@
 		header('Location: index.php');
 	}
 	
-	if(array_key_exists("submit_rating", $_POST))
+	if(array_key_exists("fid", $_POST))
 	{
 		$result = $page->addBewertung();
 	}
@@ -55,8 +69,8 @@
 						<td style="padding:10px;">
 							<h3>Kontakt</h3>
 							<p>
-								<a href="http://<?php echo urlencode($firma['url']) ?>"><?php echo utf8_encode($firma['url']) ?></a><br />
-								<a href="mailto:<?php echo urlencode($firma['email']) ?>"><?php echo utf8_encode($firma['email']) ?></a>
+								<a href="http://<?php echo $firma['url'] ?>"><?php echo utf8_encode($firma['url']) ?></a><br />
+								<a href="mailto:<?php echo $firma['email'] ?>"><?php echo utf8_encode($firma['email']) ?></a>
 							</p>
 						</td>
 						<td style="padding:10px;">
@@ -99,6 +113,7 @@
 				<?php
 					$bewertungen = $page->getBewertungen($page->validGET['fid']);
 				?>
+				<div id="comments">
 				<?php 
 					foreach($bewertungen as $bewertung)
 					{
@@ -108,32 +123,39 @@
 						echo "        <div class=\"rating_stars\" style=\"width:$rating%\"></div>";
 						echo "    </div>";
 						echo "    <p>{$bewertung['kommentar']}</p>";
-						echo "</div>";
 						echo "<hr />";
+						echo "</div>";
 					}
 				?>
+				</div>
 			</div>
 			<div id="column_right">
-				<h3>Neue Bewertung verfassen</h3>
-				<form action="detail.php?<?php echo http_build_query($page->validGET) ?>" method="post">
-					<p>
-					Eigene Bewertung: 
-					<select name="rating" size="1">
-						<option>0</option>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select>
-					 (0 = schlecht, 5 = gut)</p>
-					<p><textarea name="text" rows="5" maxlength="50" style="width:98%"></textarea></p>
-					<div class="hint">maximal 50 Zeichen.</div>
-					<p class="buttonrow">
-						<input type="reset" name="reset_rating" value="Zur&uuml;cksetzen"> 
-						<input type="submit" name="submit_rating" value="Absenden">
-					</p>
-				</form>
+				<div id="done">
+					<b>Vielen Dank.<br />Wir haben Ihre Bewertung erhalten.</b>
+				</div>
+				<div id="form">
+					<h3>Neue Bewertung verfassen</h3>
+					<form action="detail.php?<?php echo http_build_query($page->validGET) ?>" method="post" id="rating_form">
+						<input type="hidden" name="fid" value="<?php echo $page->validGET['fid'] ?>">
+						<p>
+						Eigene Bewertung: 
+						<select name="rating" id="rating" size="1">
+							<option>0</option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+						</select>
+						 (0 = schlecht, 5 = gut)</p>
+						<p><textarea name="text" id="comment_text" rows="5" maxlength="50" style="width:98%" onkeyup="countChars()"></textarea></p>
+						<div id="counter" class="hint">Hinweis: maximal 50 Zeichen.</div>
+						<p class="buttonrow">
+							<input type="reset" name="reset_rating" value="Zur&uuml;cksetzen">
+							<input type="submit" name="submit_rating" id="submit_rating" value="Absenden">
+						</p>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -344,3 +344,8 @@ hr {
 	border-top: 1px solid #ddd;
 }
 
+#done {
+	display: none;
+	text-align:center;
+	font-size: 0.9em;
+}

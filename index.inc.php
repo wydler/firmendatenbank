@@ -49,7 +49,7 @@
 		{
 			$bewertung = $_POST['rating'];
 			$kommentar = $_POST['text'];
-			$fid = $this->validGET['fid'];
+			$fid = $_POST['fid'];
 			if($bewertung >= 0 && $bewertung <= 5 && strlen($kommentar) <= 50)
 			{
 				mysql_query("INSERT INTO bewertungen (bewertung, kommentar, gehoertzu_fid_fk) VALUES ($bewertung, '{$kommentar}', $fid)") or die(mysql_error());
