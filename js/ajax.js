@@ -29,8 +29,6 @@ $('#submit_rating').click(function () {
 		complete: function(){
 			// insert new rating
 			$('<div class="comment_box"><div class="rating_bg"><div class="rating_stars" style="width:'+rating.val()*20+'%"></div></div><p>'+comment.val()+'</p></div><hr />').insertBefore('#comments');
-			// only show the last 5 ratings
-			$('.comment_box:gt(5)').hide('slow');
 		}
 	});
 	

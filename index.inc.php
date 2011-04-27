@@ -86,13 +86,58 @@
 		
 		function getFirmen() 
 		{
-			static $array;
-			if(isset($array)) {
-				return $array;
-			}
-		
 			$array = array();
-			$result = mysql_query("SELECT * FROM firmen") or die(mysql_error());
+			$query = "SELECT * FROM firmen f, behandelt b, themen t, decktab d, studienschwerpunkte s WHERE f.fid=b.fid_fk AND t.tid=b.tid_fk AND f.fid=d.fid_fk AND s.sid=d.sid_fk ";
+			
+			$schwerpunkte = $this->validGET['schwerpunkte'];
+			if(isset($schwerpunkte))
+			{
+				foreach($schwerpunkte as $schwerpunkt)
+				{
+					$query .= "AND s.name = '{$schwerpunkt}' ";
+				}
+			}
+			$themen = $this->validGET['themen'];
+			if(isset($themen))
+			{
+				foreach($themen as $thema)
+				{
+					$query .= "AND t.name = '{$thema}' ";
+				}
+			}
+			
+			$rating = $this->validGET['rating'];
+			if(isset($rating))
+			{
+				$query .= "AND f.bew_avg > {$rating} ";
+			}
+			
+			$page = $this->validGET['page'];
+			if(isset($page))
+			{
+				if($page == 'Alle')
+				{
+					//$result = mysql_query("SELECT * FROM firmen") or die(mysql_error());
+				}
+				else
+				{
+					$query .= "AND name REGEXP '^[$page]' ";
+					//$result = mysql_query("SELECT * FROM firmen WHERE name REGEXP '^[$page]'") or die(mysql_error());
+				}
+			}
+			
+			$query .= "GROUP BY f.name";
+			
+			echo $query;
+			/*
+			else
+			{
+				$result = mysql_query("SELECT * FROM firmen") or die(mysql_error());
+			}
+			*/
+			
+			$result = mysql_query($query) or die(mysql_error());
+			
 			while($row = mysql_fetch_array($result))
 			{
 				array_push($array, $row);
@@ -140,7 +185,16 @@
 		
 			return $array;
 		}
-
+		
+		function getThemenCount()
+		{
+			$result = mysql_query("SELECT COUNT(*) as count FROM themen") or die(mysql_error());
+			
+			while ($row = mysql_fetch_assoc($result)) {
+				return $row["count"];
+			}
+		}
+		
 		function getThemenTOP($limit = 3) 
 		{
 			static $array;
@@ -167,7 +221,7 @@
 			return $array;
 		}
 	
-		function getSchwerpunkte($fid = NULL) 
+		function getSchwerpunkte($fid = NULL)
 		{
 			if(isset($fid))
 			{
@@ -175,7 +229,7 @@
 				$result = mysql_query("SELECT * FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk WHERE fid_fk=$fid") or die(mysql_error());
 				while($row = mysql_fetch_array($result))
 				{
-					array_push($array, $row);
+					array_push($array, $row['name']);
 				}
 			
 				return $array;
@@ -300,6 +354,12 @@
 			{
 				$_SESSION['rating'] = $this->validRating($get['rating']);
 				$validGET['rating'] = $this->validRating($get['rating']);
+			}
+			
+			if(array_key_exists("page", $get))
+			{
+				$_SESSION['page'] = $get['page'];
+				$validGET['page'] = $get['page'];
 			}
 			
 			if(array_key_exists("showallthemen", $get))

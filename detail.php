@@ -80,7 +80,7 @@
 								<?php
 									foreach($schwerpunkte as $schwerpunkt)
 									{
-										echo "<li>{$schwerpunkt['name']}</li>";
+										echo "<li>{$schwerpunkt}</li>";
 									}
 								?>
 							</ul>
@@ -106,7 +106,7 @@
 			<div id="column_left">
 				<h3>Gesamtbewertung</h3>
 				<div class="rating_bg">
-					<div class="rating_stars" style="width:<?php echo $firma['bew_avg']*20 ?>%"></div>
+					<div id="rating_all" class="rating_stars" style="width:<?php echo $firma['bew_avg']*20 ?>%"></div>
 				</div>
 				<br />
 				<h3>Einzelbewertungen</h3>

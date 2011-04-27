@@ -89,7 +89,8 @@
 			else
 			{
 				$url = "index.php?".http_build_query($page->validGET)."&showallthemen=1";
-				echo "<div class=\"hint\"><a href=\"$url\">Alle anzeigen (101)</a></div>";
+				$row = $page->getThemenCount();
+				echo "<div class=\"hint\"><a href=\"$url\">Alle anzeigen ({$row})</a></div>";
 			}
 		?>
 	</p>
