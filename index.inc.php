@@ -87,14 +87,15 @@
 		function getFirmen() 
 		{
 			$array = array();
-			$query = "SELECT * FROM firmen f, behandelt b, themen t, decktab d, studienschwerpunkte s WHERE f.fid=b.fid_fk AND t.tid=b.tid_fk AND f.fid=d.fid_fk AND s.sid=d.sid_fk ";
+			$query = "SELECT f.* FROM firmen f, behandelt b, themen t, decktab d, studienschwerpunkte s WHERE f.fid=b.fid_fk AND t.tid=b.tid_fk AND f.fid=d.fid_fk AND s.sid=d.sid_fk ";
 			
 			$schwerpunkte = $this->validGET['schwerpunkte'];
 			if(isset($schwerpunkte))
 			{
+				$query .= "AND ";
 				foreach($schwerpunkte as $schwerpunkt)
 				{
-					$query .= "AND s.name = '{$schwerpunkt}' ";
+					$query .= "s.name = '{$schwerpunkt}' ";
 				}
 			}
 			$themen = $this->validGET['themen'];
@@ -121,7 +122,7 @@
 				}
 				else
 				{
-					$query .= "AND name REGEXP '^[$page]' ";
+					$query .= "AND f.name REGEXP '^[$page]' ";
 					//$result = mysql_query("SELECT * FROM firmen WHERE name REGEXP '^[$page]'") or die(mysql_error());
 				}
 			}

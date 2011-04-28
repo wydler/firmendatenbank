@@ -67,9 +67,31 @@
 				echo '<td><a href="detail.php?fid='.$row['fid'].'">'.$row['name'].'</a></td>';
 				echo '<td>'.$row['standort'].'</td>';
 				echo '<td class="center">';
-				echo '    <img src="./img/icon_a.png" alt="Automatisierungstechnik" title="Automatisierungstechnik" />';
-				echo '    <img src="./img/icon_i.png" alt="Informationsnetze" title="Informationsnetze" />';
-				echo '    <img src="./img/icon_m_bw.png" alt="Multimedia-Engineering" title="Multimedia-Engineering" />';
+				$schwerpunkte = $page->getSchwerpunkte($row['fid']);
+				if(in_array("Automatisierung", $schwerpunkte))
+				{
+					echo '<img src="./img/icon_a.png" alt="Automatisierungstechnik" title="Automatisierungstechnik" /> ';
+				}
+				else
+				{
+					echo '<img src="./img/icon_a_bw.png" alt="Automatisierungstechnik" title="Automatisierungstechnik" /> ';
+				}
+				if(in_array("Informationsnetze", $schwerpunkte))
+				{
+					echo '<img src="./img/icon_i.png" alt="Informationsnetze" title="Informationsnetze" /> ';
+				}
+				else
+				{
+					echo '<img src="./img/icon_i_bw.png" alt="Informationsnetze" title="Informationsnetze" /> ';
+				}
+				if(in_array("Multimedia", $schwerpunkte))
+				{
+					echo '<img src="./img/icon_m.png" alt="Multimedia" title="Multimedia" />';
+				}
+				else
+				{
+					echo '<img src="./img/icon_m_bw.png" alt="Multimedia" title="Multimedia" />';
+				}
 				echo '</td>';
 				echo '<td class="center">';
 				echo '    <div class="rating_bg">';
