@@ -32,7 +32,10 @@
 	<div id="content">
 		<h1>&Uuml;bersicht</h1>
 		<div id="abcd">
-			<a href="index.php?<?php echo http_build_query($page->validGET) ?>" class="active">Alle</a><a href="index.php?<?php echo http_build_query($page->validGET) . '&page=0-9' ?>">0-9</a><a href="index.php?<?php echo http_build_query($page->validGET) . '&page=A' ?>">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a><a href="#">F</a><a href="#">G</a><a href="#">H</a><a href="#">I</a><a href="#">J</a><a href="#">K</a><a href="#">L</a><a href="#">M</a><a href="#">N</a><a href="#">O</a><a href="#">P</a><a href="#">Q</a><a href="#">R</a><a href="#">S</a><a href="#">T</a><a href="#">U</a><a href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a><a href="#">Z</a>
+			<?php $regexs = array('Alle', '0-9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); ?>
+			<?php foreach($regexs as $regex) { ?>
+				<a href="index.php?<?php echo http_build_query($page->validGET) ?>&page=<?php echo $regex ?>" class="<?php if($page->validGET['page'] == $regex) echo 'active'; ?>"><?php echo $regex ?></a>
+			<?php } ?>
 		</div>
 		<table class="overview">
 		<colgroup>
