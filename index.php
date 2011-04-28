@@ -55,9 +55,12 @@
 		</thead>
 		<tbody>
 		<?php
+			$counter = 0;
+			
 			foreach($page->getFirmen() as $row)
 			{
-				if($row['fid']%2)
+				$counter += 1;
+				if($counter%2)
 				{
 					echo '<tr class="even">';
 				}

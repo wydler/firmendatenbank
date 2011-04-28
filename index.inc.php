@@ -242,14 +242,6 @@
 		
 			return $array;
 		}
-		
-		function createURL($page) 
-		{
-			$url = $_SERVER[QUERY_STRING];
-			$url .= "&page=".$page;
-		
-			return $url;
-		}
 	
 		function validateGET() {
 			$get = $_GET;
@@ -262,7 +254,6 @@
 				{
 					if($firma['fid'] == $get['fid'])
 					{
-						$_SESSION['fid'] = $get['fid'];
 						$validGET['fid'] = $get['fid'];
 					}
 				}
