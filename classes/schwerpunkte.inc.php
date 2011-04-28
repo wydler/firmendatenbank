@@ -39,7 +39,7 @@
 		 *
 		 * $tid = ID des Themas
 		 */
-		function getByID($fid)
+		function getByFID($fid)
 		{
 			$array = array();
 			

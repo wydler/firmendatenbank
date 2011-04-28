@@ -22,7 +22,9 @@
 		 */
 		function __destruct()
 		{
-			
+			unset($this->firmen);
+			unset($this->schwerpunkte);
+			unset($this->themen);
 		}
 		
 		/*
@@ -76,7 +78,7 @@
 		 */
 		function validateGET($get) {
 			$validGET = array();
-		
+			
 			if(array_key_exists("fid", $get))
 			{
 				if($this->validateFirma($get['fid']))

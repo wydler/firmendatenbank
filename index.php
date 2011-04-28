@@ -57,7 +57,7 @@
 		<?php
 			$counter = 0;
 			
-			foreach($page->firmen->getAll() as $row)
+			foreach($page->firmen->getByFilter($page->validGET) as $row)
 			{
 				$counter += 1;
 				if($counter%2)
@@ -71,7 +71,7 @@
 				echo '<td><a href="detail.php?fid='.$row['fid'].'">'.$row['name'].'</a></td>';
 				echo '<td>'.$row['standort'].'</td>';
 				echo '<td class="center">';
-				$schwerpunkte = $page->schwerpunkte->getByID($row['fid']);
+				$schwerpunkte = $page->schwerpunkte->getByFID($row['fid']);
 				if(in_array("Automatisierung", $schwerpunkte))
 				{
 					echo '<img src="./img/icon_a.png" alt="Automatisierungstechnik" title="Automatisierungstechnik" /> ';
@@ -109,4 +109,4 @@
 </div>
 </body>
 </html>
-<?php $page = NULL ?>
+<?php unset($page) ?>

@@ -30,7 +30,7 @@
 			
 			if(isset($_SESSION) && (count($_GET) == 0))
 			{
-				$this->validGET = $this->validator->validateGET($_SESSION);
+				$this->validGET = $_SESSION;
 			}
 			else
 			{
@@ -38,7 +38,13 @@
 			}
 		}
 		
-		function __destruct() {
+		function __destruct()
+		{
+			unset($this->themen);
+			unset($this->schwerpunkte);
+			unset($this->firmen);
+			unset($this->validator);
+			
 			mysql_close();
 		}
 		
@@ -62,6 +68,7 @@
 		}
 		*/
 		
+		/*
 		function addBewertung()
 		{
 			$bewertung = $_POST['rating'];

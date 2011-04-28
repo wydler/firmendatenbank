@@ -34,6 +34,79 @@
 			return $array;
 		}
 		
+		function getByFilter($get)
+		{
+			$array = array();
+			$query = "SELECT f.* FROM firmen f INNER JOIN decktab d ON d.fid_fk=f.fid INNER JOIN studienschwerpunkte s ON s.sid=d.sid_fk INNER JOIN behandelt b ON b.fid_fk=f.fid INNER JOIN themen t ON t.tid=b.tid_fk ";
+			
+			if(array_key_exists("rating", $get))
+			{
+				$rating = $get['rating'];
+				$query .= "WHERE f.bew_avg >= $rating ";
+			}
+			else
+			{
+				$query .= "WHERE f.bew_avg >= 0 ";
+			}
+			
+			if(array_key_exists("page", $get))
+			{
+				$page = $get['page'];
+				if($page == NULL || $page == 'Alle')
+				{
+					$query .= '';
+				}
+				else
+				{
+					$query .= "AND f.name REGEXP '^[$page]' ";
+				}
+			}
+			
+			if(array_key_exists("schwerpunkte", $get) || array_key_exists("themen", $get))
+			{
+				$query .= "AND ";
+				
+				$schwerpunkte = $get['schwerpunkte'];
+				$i = 0;
+				$cnt = count($schwerpunkte);
+				foreach($schwerpunkte as $schwerpunkt)
+				{
+					$query .= "s.name = '$schwerpunkt' ";
+					$i += 1;
+					if($i != $cnt)
+					{
+						$query .= "AND ";
+					}
+				}
+				
+				$themen = $get['themen'];
+				$i = 0;
+				$cnt = count($themen);
+				foreach($themen as $thema)
+				{
+					$query .= "AND ";
+					
+					$query .= "t.name = '$thema' ";
+					$i += 1;
+					if($i != $cnt)
+					{
+						$query .= "AND ";
+					}
+				}
+			}
+			
+			$query .= "GROUP BY f.fid ORDER BY f.name ASC ";
+			
+			$result = mysql_query($query) or die(mysql_error());
+			
+			while($row = mysql_fetch_array($result))
+			{
+				array_push($array, $row);
+			}
+			
+			return $array;
+		}
+		
 		/*
 		 * Sucht nach einem Thema mit der ID $tid in der Datenbank.
 		 *
@@ -47,10 +120,10 @@
 			
 			while($row = mysql_fetch_array($result))
 			{
-				array_push($array, $row);
+				return $row;
 			}
 			
-			return $array;
+			return 0;
 		}
 		
 		/*
@@ -70,6 +143,45 @@
 			}
 			
 			return $array;
+		}
+		
+		function getBewertungen($fid, $limit = NULL)
+		{
+			$array = array();
+			$result = mysql_query("SELECT * FROM bewertungen WHERE gehoertzu_fid_fk = $fid ORDER BY bid DESC") or die(mysql_error());
+			while($row = mysql_fetch_assoc($result))
+			{
+				array_push($array, $row);
+			}
+		
+			return $array;
+		}
+		
+		function addBewertung()
+		{
+			$bewertung = $_POST['rating'];
+			$kommentar = $_POST['text'];
+			$fid = $_POST['fid'];
+			if($bewertung >= 0 && $bewertung <= 5 && strlen($kommentar) <= 50)
+			{
+				mysql_query("INSERT INTO bewertungen (bewertung, kommentar, gehoertzu_fid_fk) VALUES ($bewertung, '{$kommentar}', $fid)") or die(mysql_error());
+				
+				$array = array();
+				$result = mysql_query("SELECT count(bewertung) as cnt, avg(bewertung) as avg FROM bewertungen WHERE gehoertzu_fid_fk = $fid") or die(mysql_error());
+				while($row = mysql_fetch_assoc($result))
+				{
+					$array = $row;
+				}
+				
+				mysql_query("UPDATE firmen SET bew_cnt = {$array['cnt']} WHERE fid = $fid") or die(mysql_error());
+				mysql_query("UPDATE firmen SET bew_avg = {$array['avg']} WHERE fid = $fid") or die(mysql_error());
+				
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
 		}
 	}
 ?>

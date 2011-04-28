@@ -34,7 +34,7 @@
 	
 	if(array_key_exists("fid", $_POST))
 	{
-		$result = $page->addBewertung();
+		$result = $page->firmen->addBewertung();
 	}
 ?>
 <div id="container">
@@ -47,7 +47,7 @@
 		</div>
 	</div>
 	<div id="content">
-		<?php $firma = $page->getFirma($page->validGET['fid']) ?>
+		<?php $firma = $page->firmen->getByID($page->validGET['fid']) ?>
 		<h1><?php echo utf8_encode($firma['name']) ?></h1>
 		<div>
 			<table style="width:723px">
@@ -74,7 +74,7 @@
 							</p>
 						</td>
 						<td style="padding:10px;">
-							<?php $schwerpunkte = $page->getSchwerpunkte($page->validGET['fid']) ?>
+							<?php $schwerpunkte = $page->schwerpunkte->getByFID($page->validGET['fid']) ?>
 							<h3>Schwerpunkte</h3>
 							<ul>
 								<?php
@@ -86,7 +86,7 @@
 							</ul>
 						</td>
 						<td style="padding:10px;">
-							<?php $themen = $page->getThemen($page->validGET['fid']) ?>
+							<?php $themen = $page->themen->getByFID($page->validGET['fid']) ?>
 							<h3>Themen</h3>
 							<ul>
 								<?php
@@ -111,7 +111,7 @@
 				<br />
 				<h3>Einzelbewertungen</h3>
 				<?php
-					$bewertungen = $page->getBewertungen($page->validGET['fid']);
+					$bewertungen = $page->firmen->getBewertungen($page->validGET['fid']);
 				?>
 				<div id="comments">
 				<?php 
