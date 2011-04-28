@@ -4,7 +4,7 @@
 	<p>
 		<ul>
 		<?php
-			foreach($page->getSchwerpunkte() as $row)
+			foreach($page->schwerpunkte->getAll() as $row)
 			{
 				$url = "index.php?".http_build_query($page->validGET);
 				$name = urlencode(strtolower($row['name']));
@@ -62,7 +62,7 @@
 	<p>
 		<ul>
 		<?php
-			foreach($page->getThemenTOP() as $row)
+			foreach($page->themen->getTop10(2) as $row)
 			{
 				$url = "index.php?".http_build_query($page->validGET);
 				$name = urlencode(strtolower($row['name']));
@@ -89,7 +89,7 @@
 			else
 			{
 				$url = "index.php?".http_build_query($page->validGET)."&showallthemen=1";
-				$row = $page->getThemenCount();
+				$row = count($page->themen->getAll());
 				echo "<div class=\"hint\"><a href=\"$url\">Alle anzeigen ({$row})</a></div>";
 			}
 		?>

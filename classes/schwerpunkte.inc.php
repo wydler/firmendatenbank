@@ -24,7 +24,7 @@
 		{
 			$array = array();
 			
-			$result = mysql_query("SELECT *, COUNT(sid_fk) as count FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk GROUP BY sid") or die(mysql_error());
+			$result = mysql_query("SELECT *, COUNT(sid_fk) as count FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk GROUP BY sid ORDER BY name") or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
 			{
@@ -39,15 +39,15 @@
 		 *
 		 * $tid = ID des Themas
 		 */
-		function getByID($sid)
+		function getByID($fid)
 		{
 			$array = array();
 			
-			$result = mysql_query("SELECT *, COUNT(sid_fk) as count FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk WHERE sid=$sid GROUP BY sid") or die(mysql_error());
+			$result = mysql_query("SELECT *, COUNT(sid_fk) as count FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk WHERE fid_fk=$fid GROUP BY sid") or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
 			{
-				array_push($array, $row);
+				array_push($array, $row['name']);
 			}
 		
 			return $array;

@@ -3,17 +3,25 @@
 	{
 		public $validGET;
 		
+		private $firmen;
+		private $schwerpunkte;
+		private $themen;
+		
 		/*
 		 * Konstruktor, macht im moment noch gar nichts.
 		 */
-		function __construct() {
-			
+		function __construct()
+		{
+			$this->firmen = new Firmen();
+			$this->schwerpunkte = new Schwerpunkte();
+			$this->themen = new Themen();
 		}
 		
 		/*
 		 * Dekonstruktor, macht im moment noch gar nichts.
 		 */
-		function __destruct() {
+		function __destruct()
+		{
 			
 		}
 		
@@ -38,7 +46,7 @@
 		
 		function validateFirma($fid)
 		{
-			$firmen = $this->getFirmen();
+			$firmen = $this->firmen->getAll();
 			foreach($firmen as $firma)
 			{
 				if($firma['fid'] == $fid)
@@ -64,37 +72,37 @@
 		}
 		
 		/*
-		 * Prueft alle $_GET-Argument auf Korrektheit.
+		 * Prueft alle $get-Argument auf Korrektheit.
 		 */
-		function validateGET() {
+		function validateGET($get) {
 			$validGET = array();
 		
-			if(array_key_exists("fid", $_GET))
+			if(array_key_exists("fid", $get))
 			{
-				if($this->validateFirma($_GET['fid']))
+				if($this->validateFirma($get['fid']))
 				{
-					$validGET['fid'] = $_GET['fid'];
+					$validGET['fid'] = $get['fid'];
 				}
 			}
 			
-			if(array_key_exists("schwerpunkte", $_GET) || array_key_exists("addschwerpunkt", $_GET))
+			if(array_key_exists("schwerpunkte", $get) || array_key_exists("addschwerpunkt", $get))
 			{
 				$validSchwerpunkte = array();
 				$querySchwerpunkte = array();
 				
-				$allSchwerpunkte = $this->getSchwerpunkte();
+				$allSchwerpunkte = $this->schwerpunkte->getAll();
 				
-				if(array_key_exists("schwerpunkte", $_GET))
+				if(array_key_exists("schwerpunkte", $get))
 				{
-					$querySchwerpunkte = $_GET['schwerpunkte'];
+					$querySchwerpunkte = $get['schwerpunkte'];
 				}
-				if(array_key_exists("addschwerpunkt", $_GET))
+				if(array_key_exists("addschwerpunkt", $get))
 				{
-					$addSchwerpunkt = $_GET['addschwerpunkt'];
+					$addSchwerpunkt = $get['addschwerpunkt'];
 				}
-				if(array_key_exists("removeschwerpunkt", $_GET))
+				if(array_key_exists("removeschwerpunkt", $get))
 				{
-					$removeSchwerpunkt = $_GET['removeschwerpunkt'];
+					$removeSchwerpunkt = $get['removeschwerpunkt'];
 				}
 				
 				foreach($allSchwerpunkte as $aspValue)
@@ -114,24 +122,24 @@
 				}
 			}
 		
-			if(array_key_exists("themen", $_GET) || array_key_exists("addthema", $_GET))
+			if(array_key_exists("themen", $get) || array_key_exists("addthema", $get))
 			{
 				$validThemen = array();
 				$queryThemen = array();
 				
-				$allThemen = $this->getThemen();
+				$allThemen = $this->themen->getAll();
 				
-				if(array_key_exists("themen", $_GET))
+				if(array_key_exists("themen", $get))
 				{
-					$queryThemen = $_GET['themen'];
+					$queryThemen = $get['themen'];
 				}
-				if(array_key_exists("addthema", $_GET))
+				if(array_key_exists("addthema", $get))
 				{
-					$addThema = $_GET['addthema'];
+					$addThema = $get['addthema'];
 				}
-				if(array_key_exists("removethema", $_GET))
+				if(array_key_exists("removethema", $get))
 				{
-					$removeThema = $_GET['removethema'];
+					$removeThema = $get['removethema'];
 				}
 				
 				foreach($allThemen as $athValue)
@@ -151,34 +159,32 @@
 				}
 			}
 		
-			if(array_key_exists("rating", $_GET))
+			if(array_key_exists("rating", $get))
 			{
-				if($this->validRating($_GET['rating']))
+				if($this->validateRating($get['rating']))
 				{
-					$_SESSION['rating'] = $_GET['rating'];
-					$validGET['rating'] = $_GET['rating'];
+					$_SESSION['rating'] = $get['rating'];
+					$validGET['rating'] = $get['rating'];
 				}
 			}
 			
-			if(array_key_exists("page", $_GET))
+			if(array_key_exists("page", $get))
 			{
-				if($this->validatePage($_GET['page']))
+				if($this->validatePage($get['page']))
 				{
-					$_SESSION['page'] = $_GET['page'];
-					$validGET['page'] = $_GET['page'];
+					$_SESSION['page'] = $get['page'];
+					$validGET['page'] = $get['page'];
 				}
 			}
 			
-			if(array_key_exists("showallthemen", $_GET))
+			if(array_key_exists("showallthemen", $get))
 			{
-				if($_GET['showallthemen'] == 1 || $_GET['showallthemen'] == 0)
+				if($get['showallthemen'] == 1 || $get['showallthemen'] == 0)
 				{
-					$_SESSION['showallthemen'] = $_GET['showallthemen'];
-					$validGET['showallthemen'] = $_GET['showallthemen'];
+					$_SESSION['showallthemen'] = $get['showallthemen'];
+					$validGET['showallthemen'] = $get['showallthemen'];
 				}
 			}
-			
-			#print_r($validGET);
 			
 			return $validGET;
 		}

@@ -79,7 +79,7 @@
 		 *
 		 * $limit = Anzahl Elemente (Default = NULL)
 		 */
-		function getTop10($limit = NULL)
+		function getTop10($limit = 10)
 		{
 			$array = array();
 			

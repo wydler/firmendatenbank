@@ -24,7 +24,7 @@
 		{
 			$array = array();
 			
-			$result = mysql_query("SELECT * FROM firmen") or die(mysql_error());
+			$result = mysql_query("SELECT * FROM firmen ORDER BY name ASC") or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
 			{
