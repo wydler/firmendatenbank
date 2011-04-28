@@ -64,11 +64,13 @@
 			
 			if(array_key_exists("schwerpunkte", $get) || array_key_exists("themen", $get))
 			{
-				$query .= "AND ";
-				
 				$schwerpunkte = $get['schwerpunkte'];
 				$i = 0;
 				$cnt = count($schwerpunkte);
+				if($cnt > 0)
+				{
+					$query .= "AND ";
+				}
 				foreach($schwerpunkte as $schwerpunkt)
 				{
 					$query .= "s.name = '$schwerpunkt' ";
@@ -82,10 +84,12 @@
 				$themen = $get['themen'];
 				$i = 0;
 				$cnt = count($themen);
-				foreach($themen as $thema)
+				if($cnt > 0)
 				{
 					$query .= "AND ";
-					
+				}
+				foreach($themen as $thema)
+				{
 					$query .= "t.name = '$thema' ";
 					$i += 1;
 					if($i != $cnt)

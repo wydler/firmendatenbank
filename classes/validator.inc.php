@@ -119,9 +119,10 @@
 				}
 				if(count($validSchwerpunkte) > 0)
 				{
-					$_SESSION['schwerpunkte'] = $validSchwerpunkte;
 					$validGET['schwerpunkte'] = $validSchwerpunkte;
 				}
+				
+				$_SESSION['schwerpunkte'] = $validSchwerpunkte;
 			}
 		
 			if(array_key_exists("themen", $get) || array_key_exists("addthema", $get))
@@ -156,9 +157,10 @@
 				}
 				if(count($validThemen) > 0)
 				{
-					$_SESSION['themen'] = $validThemen;
 					$validGET['themen'] = $validThemen;
 				}
+				
+				$_SESSION['themen'] = $validThemen;
 			}
 		
 			if(array_key_exists("rating", $get))
