@@ -32,7 +32,8 @@
 	<div id="content">
 		<h1>&Uuml;bersicht</h1>
 		<div id="abcd">
-			<?php $regexs = array('Alle', '0-9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); ?>
+			<a href="index.php?<?php echo http_build_query($page->validGET) ?>&page=Alle" class="<?php if($page->validGET['page'] == 'Alle' || $page->validGET['page'] == NULL) echo 'active'; ?>">Alle</a>
+			<?php $regexs = array('0-9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); ?>
 			<?php foreach($regexs as $regex) { ?>
 				<a href="index.php?<?php echo http_build_query($page->validGET) ?>&page=<?php echo $regex ?>" class="<?php if($page->validGET['page'] == $regex) echo 'active'; ?>"><?php echo $regex ?></a>
 			<?php } ?>

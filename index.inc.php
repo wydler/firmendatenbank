@@ -92,10 +92,9 @@
 			$schwerpunkte = $this->validGET['schwerpunkte'];
 			if(isset($schwerpunkte))
 			{
-				$query .= "AND ";
 				foreach($schwerpunkte as $schwerpunkt)
 				{
-					$query .= "s.name = '{$schwerpunkt}' ";
+					$query .= "AND s.name = '{$schwerpunkt}' ";
 				}
 			}
 			$themen = $this->validGET['themen'];
@@ -128,14 +127,6 @@
 			}
 			
 			$query .= "GROUP BY f.name";
-			
-			echo $query;
-			/*
-			else
-			{
-				$result = mysql_query("SELECT * FROM firmen") or die(mysql_error());
-			}
-			*/
 			
 			$result = mysql_query($query) or die(mysql_error());
 			
@@ -359,14 +350,21 @@
 			
 			if(array_key_exists("page", $get))
 			{
-				$_SESSION['page'] = $get['page'];
-				$validGET['page'] = $get['page'];
+				$regexs = array('Alle', '0-9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+				if(in_array($get['page'], $regexs))
+				{
+					$_SESSION['page'] = $get['page'];
+					$validGET['page'] = $get['page'];
+				}
 			}
 			
 			if(array_key_exists("showallthemen", $get))
 			{
-				$_SESSION['showallthemen'] = $_GET['showallthemen'];
-				$validGET['showallthemen'] = $_GET['showallthemen'];
+				if($get['showallthemen'] == 1 || $get['showallthemen'] == 0)
+				{
+					$_SESSION['showallthemen'] = $get['showallthemen'];
+					$validGET['showallthemen'] = $get['showallthemen'];
+				}
 			}
 			
 			#print_r($validGET);
