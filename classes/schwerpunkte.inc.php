@@ -1,5 +1,5 @@
 <?php
-	class Themen
+	class Schwerpunkte
 	{
 		/*
 		 * Konstruktor, macht im moment noch gar nichts.
@@ -24,7 +24,7 @@
 		{
 			$array = array();
 			
-			$result = mysql_query("SELECT *, COUNT(tid_fk) as count FROM themen LEFT JOIN behandelt ON tid=tid_fk GROUP BY tid") or die(mysql_error());
+			$result = mysql_query("SELECT *, COUNT(sid_fk) as count FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk GROUP BY sid") or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
 			{
@@ -39,11 +39,11 @@
 		 *
 		 * $tid = ID des Themas
 		 */
-		function getByID($tid)
+		function getByID($sid)
 		{
 			$array = array();
 			
-			$result = mysql_query("SELECT *, COUNT(tid_fk) as count FROM themen LEFT JOIN behandelt ON tid=tid_fk WHERE tid=$tid GROUP BY tid") or die(mysql_error());
+			$result = mysql_query("SELECT *, COUNT(sid_fk) as count FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk WHERE sid=$sid GROUP BY sid") or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
 			{
@@ -62,7 +62,7 @@
 		{
 			$array = array();
 			
-			$result = mysql_query("SELECT *, COUNT(tid_fk) as count FROM themen LEFT JOIN behandelt ON tid=tid_fk WHERE name='$name' GROUP BY tid") or die(mysql_error());
+			$result = mysql_query("SELECT *, COUNT(sid_fk) as count FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk WHERE name='$name' GROUP BY sid") or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
 			{
@@ -83,7 +83,7 @@
 		{
 			$array = array();
 			
-			$result = mysql_query("SELECT *, COUNT(tid_fk) as count FROM themen LEFT JOIN behandelt ON tid=tid_fk GROUP BY tid ORDER BY count DESC LIMIT $limit") or die(mysql_error());
+			$result = mysql_query("SELECT *, COUNT(sid_fk) as count FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk GROUP BY sid ORDER BY count DESC LIMIT $limit") or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
 			{
