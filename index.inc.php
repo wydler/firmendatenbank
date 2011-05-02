@@ -1,11 +1,12 @@
 <?php
-	include 'classes/validator.inc.php';
-	include 'classes/firmen.inc.php';
-	include 'classes/schwerpunkte.inc.php';
-	include 'classes/themen.inc.php';
+	include 'classes/validator.class.php';
+	include 'classes/firmen.class.php';
+	include 'classes/schwerpunkte.class.php';
+	include 'classes/themen.class.php';
 	
 	class Page {
 		public $validGET;
+		public $validPOST;
 		
 		public $validator;
 		public $firmen;
@@ -17,7 +18,7 @@
 			$dbname = "webprog_07";
 			$dbuser = "webprog_07";
 			$dbpass = "webprog_07";
-	
+			
 			mysql_connect($dbhost,$dbuser,$dbpass) or die(mysql_error());
 			mysql_select_db($dbname) or die(mysql_error());
 			
@@ -30,7 +31,7 @@
 			
 			if(isset($_SESSION) && (count($_GET) == 0))
 			{
-				$this->validGET = $_SESSION;
+				$this->validGET = $this->validator->validateGET($_SESSION);
 			}
 			else
 			{
@@ -50,7 +51,7 @@
 		
 		function clearFilter()
 		{
-			$_SESSION = array();
+			session_unset();
 			$this->validGET = array();
 		}
 	}

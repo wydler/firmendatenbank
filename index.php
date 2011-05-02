@@ -23,6 +23,16 @@
 	<?php print_r($page->validGET) ?><br />
 	<?php print_r($_SESSION) ?><br />
 	<?php echo session_id(); ?>
+	<?php 
+		require_once('smarty/Smarty.class.php');
+		$smarty = new Smarty();
+		
+		$smarty->debugging = true;
+		
+		$smarty->assign('name','Ned');
+		
+		$smarty->display('templates/index.tpl');
+	?>
 </div>
 <div id="container">
 	<div id="banner" class="clear">

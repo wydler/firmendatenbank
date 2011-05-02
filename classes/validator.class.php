@@ -36,7 +36,7 @@
 		 */
 		function validateRating($num)
 		{
-			if(is_numeric($num) && $num >= 0 && $num <= 4)
+			if(is_numeric($num) && $num >= 1 && $num <= 4)
 			{
 				return TRUE;
 			}
@@ -119,10 +119,13 @@
 				}
 				if(count($validSchwerpunkte) > 0)
 				{
+					$_SESSION['schwerpunkte'] = $validSchwerpunkte;
 					$validGET['schwerpunkte'] = $validSchwerpunkte;
 				}
-				
-				$_SESSION['schwerpunkte'] = $validSchwerpunkte;
+				else
+				{
+					unset($_SESSION['schwerpunkte']);
+				}
 			}
 		
 			if(array_key_exists("themen", $get) || array_key_exists("addthema", $get))
@@ -157,10 +160,13 @@
 				}
 				if(count($validThemen) > 0)
 				{
+					$_SESSION['themen'] = $validThemen;
 					$validGET['themen'] = $validThemen;
 				}
-				
-				$_SESSION['themen'] = $validThemen;
+				else
+				{
+					unset($_SESSION['themen']);
+				}
 			}
 		
 			if(array_key_exists("rating", $get))

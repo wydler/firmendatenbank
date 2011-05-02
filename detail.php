@@ -140,14 +140,13 @@
 						<p>
 						Eigene Bewertung: 
 						<select name="rating" id="rating" size="1">
-							<option>0</option>
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
 							<option>4</option>
 							<option>5</option>
 						</select>
-						 (0 = schlecht, 5 = gut)</p>
+						 (1 = schlecht, 5 = gut)</p>
 						<p><textarea name="text" id="comment_text" rows="5" maxlength="50" style="width:98%" onkeyup="countChars()"></textarea></p>
 						<div id="counter" class="hint">Hinweis: maximal 50 Zeichen.</div>
 						<p class="buttonrow">
