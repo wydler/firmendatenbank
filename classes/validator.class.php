@@ -89,8 +89,11 @@
 			
 			if(array_key_exists("schwerpunkte", $get) || array_key_exists("addschwerpunkt", $get))
 			{
+				$allSchwerpunkte = array();
 				$validSchwerpunkte = array();
 				$querySchwerpunkte = array();
+				$addSchwerpunkt = '';
+				$removeSchwerpunkt = '';
 				
 				$allSchwerpunkte = $this->schwerpunkte->getAll();
 				
@@ -130,8 +133,11 @@
 		
 			if(array_key_exists("themen", $get) || array_key_exists("addthema", $get))
 			{
+				$allThemen = array();
 				$validThemen = array();
 				$queryThemen = array();
+				$addThema = '';
+				$removeThema = '';
 				
 				$allThemen = $this->themen->getAll();
 				

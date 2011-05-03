@@ -64,7 +64,11 @@
 			
 			if(array_key_exists("schwerpunkte", $get) || array_key_exists("themen", $get))
 			{
-				$schwerpunkte = $get['schwerpunkte'];
+				$schwerpunkte = array();
+				if(isset($get['schwerpunkte']))
+				{
+					$schwerpunkte = $get['schwerpunkte'];
+				}
 				$i = 0;
 				$cnt = count($schwerpunkte);
 				if($cnt > 0)
@@ -81,7 +85,11 @@
 					}
 				}
 				
-				$themen = $get['themen'];
+				$themen = array();
+				if(isset($get['themen']))
+				{
+					$themen = $get['themen'];
+				}
 				$i = 0;
 				$cnt = count($themen);
 				if($cnt > 0)
@@ -116,7 +124,7 @@
 		 *
 		 * $tid = ID des Themas
 		 */
-		function getByID($fid)
+		function getByPk($fid)
 		{
 			$array = array();
 			

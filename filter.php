@@ -8,7 +8,7 @@
 			{
 				$url = "index.php?".http_build_query($page->validGET);
 				$name = urlencode(strtolower($row['name']));
-				if(in_array(strtolower($row['name']), $page->validGET['schwerpunkte']))
+				if(isset($page->validGET['schwerpunkte']) && in_array(strtolower($row['name']), $page->validGET['schwerpunkte']))
 				{
 					$url .= "&removeschwerpunkt=$name";
 					$class = "active";
@@ -31,7 +31,7 @@
 			for($i=4; $i >= 0; $i--)
 			{
 				$url = "index.php?".http_build_query($page->validGET)."&rating=".$i;
-				if($page->validGET['rating'] == $i)
+				if(isset($page->validGET['rating']) && $page->validGET['rating'] == $i)
 				{
 					$class = "active";
 				}
@@ -62,19 +62,19 @@
 	<p>
 		<ul>
 		<?php
-			if($page->validGET['showallthemen'] == 0)
+			if(isset($page->validGET['showallthemen']) && $page->validGET['showallthemen'] == 1)
 			{
-				$themen = $page->themen->getTop10(2);
+				$themen = $page->themen->getAll();
 			}
 			else
 			{
-				$themen = $page->themen->getAll();
+				$themen = $page->themen->getTop10(2);
 			}
 			foreach($themen as $thema)
 			{
 				$url = "index.php?".http_build_query($page->validGET);
 				$name = urlencode(strtolower($thema['name']));
-				if(in_array(strtolower($thema['name']), $page->validGET['themen']))
+				if(isset($page->validGET['themen']) && in_array(strtolower($thema['name']), $page->validGET['themen']))
 				{
 					$url .= "&removethema=$name";
 					$class = "active";
@@ -89,7 +89,7 @@
 		?>
 		</ul>
 		<?php
-			if($page->validGET['showallthemen'] == 1)
+			if(isset($page->validGET['showallthemen']) && $page->validGET['showallthemen'] == 1)
 			{
 				$url = "index.php?".http_build_query($page->validGET)."&showallthemen=0";
 				echo "<div class=\"hint\"><a href=\"$url\">Top10 anzeigen</a></div>";

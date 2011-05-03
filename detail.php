@@ -47,7 +47,7 @@
 		</div>
 	</div>
 	<div id="content">
-		<?php $firma = $page->firmen->getByID($page->validGET['fid']) ?>
+		<?php $firma = $page->firmen->getByPk($page->validGET['fid']) ?>
 		<h1><?php echo utf8_encode($firma['name']) ?></h1>
 		<div>
 			<table style="width:723px">
