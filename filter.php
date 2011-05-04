@@ -1,6 +1,6 @@
 <div id="filter">
 	<div class="main">
-	<p class="head">Studienschwerpunkte</p>
+	<p class="head">Studienschwerpunkte<a href="index.php?clearfilter=1" style="float:right"><img src="./img/cross.png" /></a></p>
 	<p>
 		<ul>
 		<?php
@@ -27,7 +27,7 @@
 	</p>
 	</div>
 	<div class="main">
-	<p class="head">Bewertung</p>
+	<p class="head">Bewertung<a href="index.php?clearfilter=1" style="float:right"><img src="./img/cross.png" /></a></p>
 		<ul>
 		<?php
 			for($i=4; $i >= 0; $i--)
@@ -63,7 +63,7 @@
 		</ul>
 	</div>
 	<div class="main">
-	<p class="head">Themengebiete</p>
+	<p class="head">Themengebiete<a href="index.php?clearfilter=1" style="float:right"><img src="./img/cross.png" /></a></p>
 	<p>
 		<ul>
 		<?php
@@ -73,7 +73,7 @@
 			}
 			else
 			{
-				$themen = $page->themen->getTop10(10);
+				$themen = $page->themen->getTop10();
 			}
 			foreach($themen as $thema)
 			{
@@ -110,5 +110,4 @@
 		?>
 	</p>
 	</div>
-	<a href="index.php?clearfilter=1">Reset filter</a>
 </div>
