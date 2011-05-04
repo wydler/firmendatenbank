@@ -12,13 +12,15 @@
 				{
 					$url .= "&removeschwerpunkt=$name";
 					$class = "active";
+					$img = "./img/checkbox_active.png";
 				}
 				else
 				{
 					$url .= "&addschwerpunkt=$name";
 					$class = "";
+					$img = "./img/checkbox.png";
 				}
-				echo "<li class=\"$class\"><a href=\"$url\">{$row['name']} ({$row['count']})</a></li>";
+				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\"/> {$row['name']} ({$row['count']})</a></li>";
 			}
 		?>
 		</ul>
@@ -52,7 +54,10 @@
 						echo '<img src="./img/star_bw.png" />';
 					}
 				}
-				echo '  & mehr (2)</a></li>';
+				$query = "SELECT * FROM firmen WHERE bew_avg >= $i";
+				$result = mysql_query($query) or die(mysql_error());
+				$num_rows = mysql_num_rows($result); 
+				echo "  & mehr ($num_rows)</a></li>";
 			}
 		?>
 		</ul>
@@ -68,7 +73,7 @@
 			}
 			else
 			{
-				$themen = $page->themen->getTop10(2);
+				$themen = $page->themen->getTop10(10);
 			}
 			foreach($themen as $thema)
 			{
@@ -78,13 +83,15 @@
 				{
 					$url .= "&removethema=$name";
 					$class = "active";
+					$img = "./img/checkbox_active.png";
 				}
 				else
 				{
 					$url .= "&addthema=$name";
 					$class = "";
+					$img = "./img/checkbox.png";
 				}
-				echo "<li class=\"$class\"><a href=\"$url\">{$thema['name']} ({$thema['count']})</a></li>";
+				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\"/> {$thema['name']} ({$thema['count']})</a></li>";
 			}
 		?>
 		</ul>
@@ -103,5 +110,5 @@
 		?>
 	</p>
 	</div>
-	<a href="index.php?clearfilter=1">Reset</a>
+	<a href="index.php?clearfilter=1">Reset filter</a>
 </div>

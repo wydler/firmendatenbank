@@ -69,20 +69,9 @@
 				{
 					$schwerpunkte = $get['schwerpunkte'];
 				}
-				$i = 0;
-				$cnt = count($schwerpunkte);
-				if($cnt > 0)
-				{
-					$query .= "AND ";
-				}
 				foreach($schwerpunkte as $schwerpunkt)
 				{
-					$query .= "s.name = '$schwerpunkt' ";
-					$i += 1;
-					if($i != $cnt)
-					{
-						$query .= "AND ";
-					}
+					$query .= "AND f.fid IN (SELECT fid_fk FROM decktab d INNER JOIN studienschwerpunkte s ON s.sid=d.sid_fk WHERE s.name='$schwerpunkt')";
 				}
 				
 				$themen = array();
@@ -90,24 +79,15 @@
 				{
 					$themen = $get['themen'];
 				}
-				$i = 0;
-				$cnt = count($themen);
-				if($cnt > 0)
-				{
-					$query .= "AND ";
-				}
 				foreach($themen as $thema)
 				{
-					$query .= "t.name = '$thema' ";
-					$i += 1;
-					if($i != $cnt)
-					{
-						$query .= "AND ";
-					}
+					$query .= "AND f.fid IN (SELECT fid_fk FROM behandelt b INNER JOIN themen t ON t.tid=b.tid_fk WHERE t.name='$thema')";
 				}
 			}
 			
-			$query .= "GROUP BY f.fid ORDER BY f.name ASC ";
+			$query .= "GROUP BY f.fid ORDER BY f.name ASC";
+			
+			#echo $query;
 			
 			$result = mysql_query($query) or die(mysql_error());
 			

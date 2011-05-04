@@ -174,7 +174,7 @@ h3 {
 	line-height: 1.5em;
 }
 
-#filter img {
+#filter .main img {
 	height: 1.0em;
 	margin-bottom: -1px;
 }
@@ -182,6 +182,11 @@ h3 {
 #filter .hint {
 	font-size: 0.8em;
 	text-align: right;
+}
+
+#filter .checkbox {
+	height: 14px;
+	width: 14px;
 }
 
 #content {

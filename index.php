@@ -18,7 +18,7 @@
 		$page->clearFilter();
 	}
 ?>
-<div id="debug" class="clear">
+<!--<div id="debug" class="clear">
 	<?php print_r($_GET); ?><br />
 	<?php print_r($page->validGET) ?><br />
 	<?php print_r($_SESSION) ?><br />
@@ -44,7 +44,7 @@
 		// display it
 		$smarty->display('templates/index.tpl');
 	?>
-</div>
+</div>-->
 <div id="container">
 	<div id="banner" class="clear">
 		<h1>Firmendatenbank</h1>
@@ -62,9 +62,9 @@
 		<table class="overview">
 		<colgroup>
 			<col style="width:323px">
-			<col style="width:200px">
+			<col style="width:175px">
 			<col style="width:100px">
-			<col style="width:100px">
+			<col style="width:125px">
 		</colgroup>
 		<thead>
 			<tr>
@@ -89,8 +89,8 @@
 				{
 					echo '<tr class="odd">';
 				}
-				echo '<td><a href="detail.php?fid='.$row['fid'].'">'.$row['name'].'</a></td>';
-				echo '<td>'.$row['standort'].'</td>';
+				echo '<td><a href="detail.php?fid='.$row['fid'].'">'.utf8_encode($row['name']).'</a></td>';
+				echo '<td>'.utf8_encode($row['standort']).'</td>';
 				echo '<td class="center">';
 				$schwerpunkte = $page->schwerpunkte->getByFID($row['fid']);
 				if(in_array("Automatisierung", $schwerpunkte))
@@ -119,9 +119,9 @@
 				}
 				echo '</td>';
 				echo '<td class="center">';
-				echo '    <div class="rating_bg">';
+				echo '    <div class="rating_bg" style="display:inline-block">';
 				echo '        <a href="detail.php?fid='.$row['fid'].'#rating"><div class="rating_stars" style="width:'.($row['bew_avg']*20).'%"></div></a>';
-				echo '    </div>';
+				echo '    </div> ('.$row['bew_cnt'].')';
 				echo '</td>';
 				echo '</tr>';
 			}

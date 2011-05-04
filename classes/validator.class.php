@@ -36,7 +36,7 @@
 		 */
 		function validateRating($num)
 		{
-			if(is_numeric($num) && $num >= 1 && $num <= 4)
+			if(is_numeric($num) && $num >= 0 && $num <= 4)
 			{
 				return TRUE;
 			}
