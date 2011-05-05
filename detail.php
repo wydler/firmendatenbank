@@ -11,14 +11,19 @@
 	<script src="js/ajax.js"></script>
 	<script language="javascript">
 		$(document).ready(function() {
-			$('.comment_box:gt(5)').hide();
+			$('.comment_box:gt(4)').hide();
 		});
+		
 		function countChars() {
 			var len = 50 - $("#comment_text").val().length;
 			if(len == 50)
 				$("#counter").html("Hinweis: maximal 50 Zeichen.");
 			else
 				$("#counter").html("noch " + len + " Zeichen übrig.");
+		}
+		
+		function toggleBewertungen() {
+			$('.comment_box:gt(4)').toggle('fast');
 		}
 	</script>
 </head>
@@ -53,9 +58,9 @@
 			<table style="width:723px">
 				<colgroup>
 					<col style="width:25%">
-					<col style="width:30%">
 					<col style="width:25%">
-					<col style="width:20%">
+					<col style="width:25%">
+					<col style="width:25%">
 				</colgroup>
 				<tbody style="font-size:0.9em;">
 					<tr>
@@ -105,8 +110,11 @@
 		<div id="rating">
 			<div id="column_left">
 				<h3>Gesamtbewertung</h3>
-				<div class="rating_bg">
-					<div id="rating_all" class="rating_stars" style="width:<?php echo $firma['bew_avg']*20 ?>%"></div>
+				<div style="text-align:center">
+					<div class="rating_bg" style="display:inline-block">
+						<div id="rating_all" class="rating_stars" style="width:<?php echo $firma['bew_avg']*20 ?>%"></div>
+					</div>
+					<span style="font-size:0.9em">(<span id="rating_cnt"><?php echo $firma['bew_cnt'] ?></span>)</span>
 				</div>
 				<br />
 				<h3>Einzelbewertungen</h3>
@@ -128,6 +136,7 @@
 					}
 				?>
 				</div>
+				<div style="text-align:right;font-size:12px"><span onclick="toggleBewertungen()">Ein-/Ausblenden</span></div>
 			</div>
 			<div id="column_right">
 				<div id="done">

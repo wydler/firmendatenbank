@@ -1,7 +1,7 @@
 <div id="filter">
 	<div class="main">
-	<p class="head">Studienschwerpunkte<a href="index.php?clearfilter=1" style="float:right"><img src="./img/cross.png" /></a></p>
-	<p>
+	<p class="head">Studienschwerpunkte<span id="toggle_schwerpunkte" style="float:right"><img src="./img/dots_white_left.png" alt="Clear" /></span></p>
+	<div id="filter_schwerpunkte">
 		<ul>
 		<?php
 			foreach($page->schwerpunkte->getAll() as $row)
@@ -24,10 +24,11 @@
 			}
 		?>
 		</ul>
-	</p>
+	</div>
 	</div>
 	<div class="main">
-	<p class="head">Bewertung<a href="index.php?clearfilter=1" style="float:right"><img src="./img/cross.png" /></a></p>
+	<p class="head">Bewertung<span id="toggle_rating" style="float:right"><img src="./img/dots_white_left.png" alt="Clear" /></span></p>
+	<div id="filter_rating">
 		<ul>
 		<?php
 			for($i=4; $i >= 0; $i--)
@@ -62,9 +63,10 @@
 		?>
 		</ul>
 	</div>
+	</div>
 	<div class="main">
-	<p class="head">Themengebiete<a href="index.php?clearfilter=1" style="float:right"><img src="./img/cross.png" /></a></p>
-	<p>
+	<p class="head">Themengebiete<span id="toggle_themen" style="float:right"><img src="./img/dots_white_left.png" alt="Clear" /></span></p>
+	<div id="filter_themen">
 		<ul>
 		<?php
 			if(isset($page->validGET['showallthemen']) && $page->validGET['showallthemen'] == 1)
@@ -108,6 +110,9 @@
 				echo "<div class=\"hint\"><a href=\"$url\">Alle anzeigen ({$cnt})</a></div>";
 			}
 		?>
-	</p>
+	</div>
+	</div>
+	<div style="text-align:right;padding:0;margin:0;line-height:0">
+		<a href="index.php?clearfilter=1"><img src="./img/arrow_undo.png" alt="Clear" /></a>
 	</div>
 </div>

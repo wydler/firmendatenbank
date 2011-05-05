@@ -123,7 +123,7 @@ h3 {
 }
 #filter {
 	float: left;
-	width: 200px;
+	width: 221px;
 	padding: 0px 10px;
 	margin: 10px 0px;
 	border-right: 1px solid #ccc;
@@ -185,14 +185,14 @@ h3 {
 }
 
 #filter .checkbox {
-	height: 14px;
-	width: 14px;
+	height: 13px;
+	width: 13px;
 }
 
 #content {
 	float: left;
 	margin: 10px;
-	width: 723px;
+	width: 702px;
 }
 
 #abcd {
@@ -232,7 +232,7 @@ table.overview .even {
 }
 
 table.overview .odd {
-	background: #eee;
+	background: #fff;
 }
 
 table.overview thead td {
@@ -275,7 +275,8 @@ table.overview tbody img {
 	margin: 0 auto;
 	background: url("../img/star_bw.png") repeat-x;
 	width: 80px;
-	height: 16px;
+	height: 18px;
+	vertical-align: middle;
 }
 
 .rating_stars {
@@ -286,7 +287,7 @@ table.overview tbody img {
 
 #column_left {
 	float: left;
-	width: 341px;
+	width: 330px;
 	background: #fff;
 	padding: 10px;
 	border-right: 1px solid #ccc;
@@ -299,7 +300,7 @@ table.overview tbody img {
 
 #column_right {
 	float: right;
-	width: 341px;
+	width: 331px;
 	background: #fff;
 	padding: 10px;
 }
@@ -315,8 +316,7 @@ table.overview tbody img {
 	margin-bottom: 10px;
 }
 
-.comment_box {s
-	border: 1px solid #eee;
+.comment_box {
 	padding: 3px;
 	margin-top: 5px;
 }

@@ -7,6 +7,41 @@
 	<meta name="description" content="Firmendatenbank der Hochschule Ravensburg-Weingarten." />
 	<meta name="keywords" content="firmen,datenbank,praktikum" />
 	<link rel="stylesheet" href="./style/screen.css" media="screen" />
+	<script src="js/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#toggle_schwerpunkte').click(function() {
+				var showOrHide = $('#filter_schwerpunkte').css('display');
+				if(showOrHide == 'none') {
+					$('#filter_schwerpunkte').show('fast');
+					$('#toggle_schwerpunkte > img').replaceWith('\<img src=\".\/img\/dots_white_left.png\" alt=\"Clear\" \/\>');
+				} else {
+					$('#toggle_schwerpunkte > img').replaceWith('\<img src=\".\/img\/dots_white_down.png\" alt=\"Clear\" \/\>');
+					$('#filter_schwerpunkte').hide('fast');
+				}
+			});
+			$('#toggle_rating').click(function() {
+				var showOrHide = $('#filter_rating').css('display');
+				if(showOrHide == 'none') {
+					$('#filter_rating').show('fast');
+					$('#toggle_rating > img').replaceWith('\<img src=\".\/img\/dots_white_left.png\" alt=\"Clear\" \/\>');
+				} else {
+					$('#toggle_rating > img').replaceWith('\<img src=\".\/img\/dots_white_down.png\" alt=\"Clear\" \/\>');
+					$('#filter_rating').hide('fast');
+				}
+			});
+			$('#toggle_themen').click(function() {
+				var showOrHide = $('#filter_themen').css('display');
+				if(showOrHide == 'none') {
+					$('#filter_themen').show('fast');
+					$('#toggle_themen > img').replaceWith('\<img src=\".\/img\/dots_white_left.png\" alt=\"Clear\" \/\>');
+				} else {
+					$('#toggle_themen > img').replaceWith('\<img src=\".\/img\/dots_white_down.png\" alt=\"Clear\" \/\>');
+					$('#filter_themen').hide('fast');
+				}
+			});
+		});
+	</script>
 </head>
 <body>
 <?php 
@@ -61,10 +96,10 @@
 		</div>
 		<table class="overview">
 		<colgroup>
-			<col style="width:323px">
+			<col style="width:300px">
 			<col style="width:175px">
-			<col style="width:100px">
-			<col style="width:125px">
+			<col style="width:123px">
+			<col style="width:115px">
 		</colgroup>
 		<thead>
 			<tr>
@@ -118,7 +153,7 @@
 					echo '<img src="./img/icon_m_bw.png" alt="Multimedia" title="Multimedia" />';
 				}
 				echo '</td>';
-				echo '<td class="center">';
+				echo '<td class="left">';
 				echo '    <div class="rating_bg" style="display:inline-block">';
 				echo '        <a href="detail.php?fid='.$row['fid'].'#rating"><div class="rating_stars" style="width:'.($row['bew_avg']*20).'%"></div></a>';
 				echo '    </div> ('.$row['bew_cnt'].')';

@@ -16,6 +16,22 @@ $('#submit_rating').click(function () {
 			$('#form').fadeOut('slow');
 			// show confirmation
 			$('#done').fadeIn('slow');
+			
+			// parse rating avg and cnt
+			var rnt_cnt = parseInt($('#rating_cnt').html());
+			var rnt_avg = parseInt($('#rating_all').width())/16;
+			var new_rnt = parseInt(rating.val());
+			
+			// calulate new rating avg
+			var a = rnt_cnt * rnt_avg;
+			var b = a + new_rnt;
+			var c = b / ++rnt_cnt;
+			
+			// change rating avg
+			$('#rating_all').width(c*16);
+			$('#rating_cnt').html(rnt_cnt);
+			// insert new rating
+			$('<div class="comment_box"><div class="rating_bg"><div class="rating_stars" style="width:'+rating.val()*20+'%"></div></div><p>'+comment.val()+'</p></div><hr />').insertBefore('#comments');
 		},
 		// callback handler that will be called on error
 		error: function(jqXHR, textStatus, errorThrown){
@@ -27,8 +43,7 @@ $('#submit_rating').click(function () {
 		// callback handler that will be called on completion
 		// which means, either on success or error
 		complete: function(){
-			// insert new rating
-			$('<div class="comment_box"><div class="rating_bg"><div class="rating_stars" style="width:'+rating.val()*20+'%"></div></div><p>'+comment.val()+'</p></div><hr />').insertBefore('#comments');
+			// do something
 		}
 	});
 	
