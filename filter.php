@@ -20,7 +20,7 @@
 					$class = "";
 					$img = "./img/checkbox.png";
 				}
-				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\"/> {$row['name']} ({$row['count']})</a></li>";
+				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\"/> {$row['name']}</a></li>";
 			}
 		?>
 		</ul>
@@ -42,7 +42,7 @@
 				{
 					$class = "";
 				}
-				
+
 				echo "<li class=\"$class\"><a href=\"$url\">";
 				for($k=1; $k<=5; $k++)
 				{
@@ -58,7 +58,7 @@
 				$query = "SELECT * FROM firmen WHERE bew_avg >= $i";
 				$result = mysql_query($query) or die(mysql_error());
 				$num_rows = mysql_num_rows($result); 
-				echo "  & mehr ($num_rows)</a></li>";
+				echo "  & mehr</a></li>";
 			}
 		?>
 		</ul>
@@ -93,7 +93,7 @@
 					$class = "";
 					$img = "./img/checkbox.png";
 				}
-				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\"/> {$thema['name']} ({$thema['count']})</a></li>";
+				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\"/> {$thema['name']}</a></li>";
 			}
 		?>
 		</ul>

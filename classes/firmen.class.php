@@ -37,7 +37,7 @@
 		function getByFilter($get)
 		{
 			$array = array();
-			$query = "SELECT f.* FROM firmen f INNER JOIN decktab d ON d.fid_fk=f.fid INNER JOIN studienschwerpunkte s ON s.sid=d.sid_fk INNER JOIN behandelt b ON b.fid_fk=f.fid INNER JOIN themen t ON t.tid=b.tid_fk ";
+			$query = "SELECT f.* FROM firmen f ";
 			
 			if(array_key_exists("rating", $get))
 			{
@@ -71,23 +71,28 @@
 				}
 				foreach($schwerpunkte as $schwerpunkt)
 				{
-					$query .= "AND f.fid IN (SELECT fid_fk FROM decktab d INNER JOIN studienschwerpunkte s ON s.sid=d.sid_fk WHERE s.name='$schwerpunkt')";
+					$query .= "AND f.fid IN (SELECT fid_fk FROM decktab d INNER JOIN studienschwerpunkte s ON s.sid=d.sid_fk WHERE s.name='$schwerpunkt') ";
 				}
 				
 				$themen = array();
 				if(isset($get['themen']))
 				{
 					$themen = $get['themen'];
+					$query .= "AND (";
 				}
 				foreach($themen as $thema)
 				{
-					$query .= "AND f.fid IN (SELECT fid_fk FROM behandelt b INNER JOIN themen t ON t.tid=b.tid_fk WHERE t.name='$thema')";
+					$query .= "f.fid IN (SELECT fid_fk FROM behandelt b INNER JOIN themen t ON t.tid=b.tid_fk WHERE t.name='$thema') OR ";
+				}
+				if(isset($get['themen']))
+				{
+					$query .= "f.fid IN (SELECT fid_fk FROM behandelt b INNER JOIN themen t ON t.tid=b.tid_fk WHERE t.name=''))";
 				}
 			}
 			
 			$query .= "GROUP BY f.fid ORDER BY f.name ASC";
 			
-			#echo $query;
+			echo $query;
 			
 			$result = mysql_query($query) or die(mysql_error());
 			

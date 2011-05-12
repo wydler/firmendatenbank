@@ -24,7 +24,7 @@
 		{
 			$array = array();
 			
-			$result = mysql_query("SELECT *, COUNT(tid_fk) as count FROM themen LEFT JOIN behandelt ON tid=tid_fk GROUP BY tid") or die(mysql_error());
+			$result = mysql_query("SELECT * FROM themen ORDER BY name ASC") or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
 			{

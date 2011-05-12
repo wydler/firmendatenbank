@@ -16,21 +16,18 @@
 		{
 			
 		}
-		
-		/*
-		 * Gibt alle Themen aus der Datenbank zurueck.
-		 */
+
 		function getAll()
 		{
 			$array = array();
-			
-			$result = mysql_query("SELECT *, COUNT(sid_fk) as count FROM studienschwerpunkte LEFT JOIN decktab ON sid=sid_fk GROUP BY sid ORDER BY name") or die(mysql_error());
-			
+
+			$result = mysql_query("SELECT * FROM studienschwerpunkte ORDER BY name") or die(mysql_error());
+
 			while($row = mysql_fetch_array($result))
 			{
 				array_push($array, $row);
 			}
-		
+
 			return $array;
 		}
 		
