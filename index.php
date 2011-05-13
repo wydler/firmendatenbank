@@ -57,28 +57,6 @@
 	<?php print_r($_GET); ?><br />
 	<?php print_r($page->validGET) ?><br />
 	<?php print_r($_SESSION) ?><br />
-	<?php echo session_id(); ?><br />
-	<?php
-		include('smarty/libs/Smarty.class.php');
-		
-		// create object
-		$smarty = new Smarty;
-
-		// assign an array of data
-		$smarty->assign('names', array('bob','jim','joe','jerry','fred'));
-
-		// assign an associative array of data
-		$smarty->assign('users', array(
-			array('name' => 'bob', 'phone' => '555-3425'),
-			array('name' => 'jim', 'phone' => '555-4364'),
-			array('name' => 'joe', 'phone' => '555-3422'),
-			array('name' => 'jerry', 'phone' => '555-4973'),
-			array('name' => 'fred', 'phone' => '555-3235')
-			));
-
-		// display it
-		$smarty->display('templates/index.tpl');
-	?>
 </div>-->
 <div id="container">
 	<div id="banner" class="clear">
@@ -88,10 +66,10 @@
 	<div id="content">
 		<h1>&Uuml;bersicht</h1>
 		<div id="abcd">
-			<a href="index.php?<?php echo http_build_query($page->validGET) ?>&page=Alle" class="<?php if($page->validGET['page'] == 'Alle' || $page->validGET['page'] == NULL) echo 'active'; ?>">Alle</a>
-			<?php $regexs = array('0-9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); ?>
-			<?php foreach($regexs as $regex) { ?>
-				<a href="index.php?<?php echo http_build_query($page->validGET) ?>&page=<?php echo $regex ?>" class="<?php if($page->validGET['page'] == $regex) echo 'active'; ?>"><?php echo $regex ?></a>
+			<a href="index.php?<?php echo http_build_query($page->validGET) ?>&amp;page=Alle" class="<?php if($page->validGET['page'] == 'Alle' || $page->validGET['page'] == NULL) echo 'active'; ?>">Alle</a>
+			<?php $regexs = array('0-9'=>'0-9', 'A'=>'AÄ', 'B'=>'B', 'C'=>'C', 'D'=>'D', 'E'=>'E', 'F'=>'F', 'G'=>'G', 'H'=>'H', 'I'=>'I', 'J'=>'J', 'K'=>'K', 'L'=>'L', 'M'=>'M', 'N'=>'N', 'O'=>'OÖ', 'P'=>'P', 'Q'=>'Q', 'R'=>'R', 'S'=>'S', 'T'=>'T', 'U'=>'UÜ', 'V'=>'V', 'W'=>'W', 'X'=>'X', 'Y'=>'Y', 'Z'=>'Z'); ?>
+			<?php foreach($regexs as $name=>$regex) { ?>
+				<a href="index.php?<?php echo http_build_query($page->validGET) ?>&amp;page=<?php echo $regex ?>" class="<?php if($page->validGET['page'] == $regex) echo 'active'; ?>"><?php echo $name ?></a>
 			<?php } ?>
 		</div>
 		<table class="overview">
@@ -118,49 +96,54 @@
 				$counter += 1;
 				if($counter%2)
 				{
-					echo '<tr class="even">';
+					echo "<tr class=\"even\">";
 				}
 				else
 				{
-					echo '<tr class="odd">';
+					echo "<tr class=\"odd\">";
 				}
-				echo '<td><a href="detail.php?fid='.$row['fid'].'">'.utf8_encode($row['name']).'</a></td>';
-				echo '<td>'.utf8_encode($row['standort']).'</td>';
-				echo '<td class="center">';
+				echo "<td><a href=\"detail.php?fid={$row['fid']}\">".$row['name']."</a></td>";
+				echo "<td>".$row['standort']."</td>";
+				echo "<td class=\"center\">";
+				
 				$schwerpunkte = $page->schwerpunkte->getByFID($row['fid']);
 				if(in_array("Automatisierung", $schwerpunkte))
 				{
-					echo '<img src="./img/icon_a.png" alt="Automatisierungstechnik" title="Automatisierungstechnik" /> ';
+					echo "<img src=\"./img/icon_a.png\" alt=\"Automatisierungstechnik\" title=\"Automatisierungstechnik\" /> ";
 				}
 				else
 				{
-					echo '<img src="./img/icon_a_bw.png" alt="Automatisierungstechnik" title="Automatisierungstechnik" /> ';
+					echo "<img src=\"./img/icon_a_bw.png\" alt=\"Automatisierungstechnik\" title=\"Automatisierungstechnik\" /> ";
 				}
 				if(in_array("Informationsnetze", $schwerpunkte))
 				{
-					echo '<img src="./img/icon_i.png" alt="Informationsnetze" title="Informationsnetze" /> ';
+					echo "<img src=\"./img/icon_i.png\" alt=\"Informationsnetze\" title=\"Informationsnetze\" /> ";
 				}
 				else
 				{
-					echo '<img src="./img/icon_i_bw.png" alt="Informationsnetze" title="Informationsnetze" /> ';
+					echo "<img src=\"./img/icon_i_bw.png\" alt=\"Informationsnetze\" title=\"Informationsnetze\" /> ";
 				}
 				if(in_array("Multimedia", $schwerpunkte))
 				{
-					echo '<img src="./img/icon_m.png" alt="Multimedia" title="Multimedia" />';
+					echo "<img src=\"./img/icon_m.png\" alt=\"Multimedia\" title=\"Multimedia\" />";
 				}
 				else
 				{
-					echo '<img src="./img/icon_m_bw.png" alt="Multimedia" title="Multimedia" />';
+					echo "<img src=\"./img/icon_m_bw.png\" alt=\"Multimedia\" title=\"Multimedia\" />";
 				}
-				echo '</td>';
-				echo '<td class="left">';
-				echo '    <div class="rating_bg" style="display:inline-block">';
-				echo '        <a href="detail.php?fid='.$row['fid'].'#rating"><div class="rating_stars" style="width:'.($row['bew_avg']*20).'%"></div></a>';
-				echo '    </div> ('.$row['bew_cnt'].')';
-				echo '</td>';
-				echo '</tr>';
+				echo "</td>";
+				echo "<td class=\"left\">";
+				echo "    <div class=\"rating_bg\" style=\"display:inline-block\">";
+				echo "        <a href=\"detail.php?fid=".$row['fid']."#ratings\"><div class=\"rating_stars\" style=\"width:".($row['bew_avg']*20)."%\"></div></a>";
+				echo "    </div> ({$row['bew_cnt']})";
+				echo "</td>";
+				echo "</tr>";
 			}
 		?>
+		</tbody>
+		</table>
+		<br />
+		<p style="text-align:right;font-size:0.8em"><a href="xmlexport.php">Liste als XML exportieren</a></p>
 	</div>
 </div>
 </body>

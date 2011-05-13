@@ -46,6 +46,9 @@
 			}
 		}
 		
+		/**
+		 * Prueft, ob die Firma in der Datenbank vorhanden ist.
+		 */
 		function validateFirma($fid)
 		{
 			$firmen = $this->firmen->getAll();
@@ -60,9 +63,12 @@
 			return FALSE;
 		}
 		
+		/**
+		 * Prueft, ob ein gueltiger Anfangsbuchstabe gegeben ist.
+		 */
 		function validatePage($regex)
 		{
-			$regexs = array('Alle', '0-9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+			$regexs = array('Alle', '0-9', 'AÄ', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'OÖ', 'P', 'Q', 'R', 'S', 'T', 'UÜ', 'V', 'W', 'X', 'Y', 'Z');
 			if(in_array($regex, $regexs))
 			{
 				return TRUE;

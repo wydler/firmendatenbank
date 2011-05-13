@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="./style/screen.css" media="screen" />
 	<script src="js/jquery-1.5.2.min.js"></script>
 	<script src="js/ajax.js"></script>
-	<script language="javascript">
+	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.comment_box:gt(4)').hide();
 		});
@@ -37,7 +37,7 @@
 		header('Location: index.php');
 	}
 	
-	if(array_key_exists("fid", $_POST))
+	if(array_key_exists("fid", $_POST) && array_key_exists("text", $_POST))
 	{
 		$result = $page->firmen->addBewertung();
 	}
@@ -107,7 +107,7 @@
 			</table>
 			<br />
 		</div>
-		<div id="rating">
+		<div id="ratings">
 			<div id="column_left">
 				<h3>Gesamtbewertung</h3>
 				<div style="text-align:center">

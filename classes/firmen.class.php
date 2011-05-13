@@ -1,6 +1,6 @@
 <?php
 	class Firmen
-	{
+	{		
 		/*
 		 * Konstruktor, macht im moment noch gar nichts.
 		 */
@@ -18,7 +18,7 @@
 		}
 		
 		/*
-		 * Gibt alle Themen aus der Datenbank zurueck.
+		 * Gibt alle Firmen aus der Datenbank zurueck.
 		 */
 		function getAll()
 		{
@@ -34,6 +34,10 @@
 			return $array;
 		}
 		
+		/**
+		 * Gibt alle Firmen aus der Datenbank zurueck, die den Filterkriterien
+		 * entsprechen.
+		 */
 		function getByFilter($get)
 		{
 			$array = array();
@@ -92,8 +96,6 @@
 			
 			$query .= "GROUP BY f.fid ORDER BY f.name ASC";
 			
-			echo $query;
-			
 			$result = mysql_query($query) or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
@@ -105,9 +107,9 @@
 		}
 		
 		/*
-		 * Sucht nach einem Thema mit der ID $tid in der Datenbank.
+		 * Sucht nach einer Firma mit der ID $fid in der Datenbank.
 		 *
-		 * $tid = ID des Themas
+		 * $fid = ID des Themas
 		 */
 		function getByPk($fid)
 		{
@@ -115,16 +117,13 @@
 			
 			$result = mysql_query("SELECT * FROM firmen WHERE fid=$fid") or die(mysql_error());
 			
-			while($row = mysql_fetch_array($result))
-			{
-				return $row;
-			}
+			$row = mysql_fetch_array($result);
 			
-			return 0;
+			return $row;
 		}
 		
 		/*
-		 * Sucht alle Themen die den String $name beinhalten.
+		 * Sucht alle Firmen die den String $name beinhalten.
 		 *
 		 * $name = Suchstring
 		 */
@@ -142,6 +141,9 @@
 			return $array;
 		}
 		
+		/**
+		 * Gibt alle Bewertungen zu einer bestimmenten Firma zurueck.
+		 */
 		function getBewertungen($fid, $limit = NULL)
 		{
 			$array = array();
@@ -154,21 +156,22 @@
 			return $array;
 		}
 		
+		/**
+		 * Fuegt eine neue Bewertung hinzu.
+		 */
 		function addBewertung()
 		{
-			$bewertung = $_POST['rating'];
-			$kommentar = $_POST['text'];
 			$fid = $_POST['fid'];
+			$bewertung = $_POST['rating'];
+			$kommentar = mysql_real_escape_string($_POST['text']);
+			
 			if($bewertung >= 0 && $bewertung <= 5 && strlen($kommentar) <= 50)
 			{
 				mysql_query("INSERT INTO bewertungen (bewertung, kommentar, gehoertzu_fid_fk) VALUES ($bewertung, '{$kommentar}', $fid)") or die(mysql_error());
 				
 				$array = array();
 				$result = mysql_query("SELECT count(bewertung) as cnt, avg(bewertung) as avg FROM bewertungen WHERE gehoertzu_fid_fk = $fid") or die(mysql_error());
-				while($row = mysql_fetch_assoc($result))
-				{
-					$array = $row;
-				}
+				$array = mysql_fetch_assoc($result);
 				
 				mysql_query("UPDATE firmen SET bew_cnt = {$array['cnt']} WHERE fid = $fid") or die(mysql_error());
 				mysql_query("UPDATE firmen SET bew_avg = {$array['avg']} WHERE fid = $fid") or die(mysql_error());

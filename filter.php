@@ -10,13 +10,13 @@
 				$name = urlencode(strtolower($row['name']));
 				if(isset($page->validGET['schwerpunkte']) && in_array(strtolower($row['name']), $page->validGET['schwerpunkte']))
 				{
-					$url .= "&removeschwerpunkt=$name";
+					$url .= "&amp;removeschwerpunkt=$name";
 					$class = "active";
 					$img = "./img/checkbox_active.png";
 				}
 				else
 				{
-					$url .= "&addschwerpunkt=$name";
+					$url .= "&amp;addschwerpunkt=$name";
 					$class = "";
 					$img = "./img/checkbox.png";
 				}
@@ -33,7 +33,7 @@
 		<?php
 			for($i=4; $i >= 0; $i--)
 			{
-				$url = "index.php?".http_build_query($page->validGET)."&rating=".$i;
+				$url = "index.php?".http_build_query($page->validGET)."&amp;rating=".$i;
 				if(isset($page->validGET['rating']) && $page->validGET['rating'] == $i)
 				{
 					$class = "active";
@@ -83,13 +83,13 @@
 				$name = urlencode(strtolower($thema['name']));
 				if(isset($page->validGET['themen']) && in_array(strtolower($thema['name']), $page->validGET['themen']))
 				{
-					$url .= "&removethema=$name";
+					$url .= "&amp;removethema=$name";
 					$class = "active";
 					$img = "./img/checkbox_active.png";
 				}
 				else
 				{
-					$url .= "&addthema=$name";
+					$url .= "&amp;addthema=$name";
 					$class = "";
 					$img = "./img/checkbox.png";
 				}
@@ -100,12 +100,12 @@
 		<?php
 			if(isset($page->validGET['showallthemen']) && $page->validGET['showallthemen'] == 1)
 			{
-				$url = "index.php?".http_build_query($page->validGET)."&showallthemen=0";
+				$url = "index.php?".http_build_query($page->validGET)."&amp;showallthemen=0";
 				echo "<div class=\"hint\"><a href=\"$url\">Top10 anzeigen</a></div>";
 			}
 			else
 			{
-				$url = "index.php?".http_build_query($page->validGET)."&showallthemen=1";
+				$url = "index.php?".http_build_query($page->validGET)."&amp;showallthemen=1";
 				$cnt = count($page->themen->getAll());
 				echo "<div class=\"hint\"><a href=\"$url\">Alle anzeigen ({$cnt})</a></div>";
 			}
