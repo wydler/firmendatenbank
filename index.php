@@ -74,10 +74,10 @@
 		</div>
 		<table class="overview">
 		<colgroup>
-			<col style="width:300px">
+			<col style="width:290px">
 			<col style="width:175px">
 			<col style="width:123px">
-			<col style="width:115px">
+			<col style="width:125px">
 		</colgroup>
 		<thead>
 			<tr>
