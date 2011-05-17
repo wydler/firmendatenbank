@@ -12,7 +12,9 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.comment_box:gt(4)').hide();
-			$('#toggle_bewertungen').show();
+			if($('.comment_box').length > 5) {
+				$('#toggle_bewertungen').show();
+			}
 		});
 		
 		function countChars() {
@@ -135,7 +137,7 @@
 					}
 				?>
 				</div>
-				<div style="text-align:right;font-size:12px"><a id="toggle_bewertungen" href="#ratings" onclick="toggleBewertungen()">Alle anzeigen</a></div>
+				<div style="text-align:right;font-size:12px"><a id="toggle_bewertungen" href="#ratings" onclick="toggleBewertungen()" style="display:none">Alle anzeigen</a></div>
 			</div>
 			<div id="column_right">
 				<div id="done">

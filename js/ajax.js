@@ -7,7 +7,7 @@ $('#submit_rating').click(function () {
 	dataString = $("#rating_form").serialize();
 	
 	$.ajax({
-		url: "addRating.php?fid=3",
+		url: "addRating2.php",
 		type: "post",
 		data: dataString,
 		// callback handler that will be called on success
@@ -37,7 +37,9 @@ $('#submit_rating').click(function () {
 		error: function(jqXHR, textStatus, errorThrown){
 			// log the error to the console
 			//alert("error: " + errorThrown);
-			$('#done').html('Fehler: '+errorThrown);
+			$('#done').html('Sorry, something went wrong.<br />A team of highly trained monkeys has been dispatched to deal with this situation.<br /><br />'+errorThrown);
+			$('#done').css('color','#fff');
+			$('#done').css('background','#c00');
 			$('#done').fadeIn('slow');
 		},
 		// callback handler that will be called on completion
