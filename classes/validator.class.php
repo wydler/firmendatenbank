@@ -7,7 +7,7 @@
 		private $schwerpunkte;
 		private $themen;
 		
-		/*
+		/**
 		 * Konstruktor, macht im moment noch gar nichts.
 		 */
 		function __construct()
@@ -17,7 +17,7 @@
 			$this->themen = new Themen();
 		}
 		
-		/*
+		/**
 		 * Dekonstruktor, macht im moment noch gar nichts.
 		 */
 		function __destruct()
@@ -27,7 +27,7 @@
 			unset($this->themen);
 		}
 		
-		/*
+		/**
 		 * Prueft ob die uebergebene Zahl eine gueltige Bewertung
 		 * zwischen 0 und 5 ist. Wenn gültig, wird die Bewertung
 		 * zurueckgegeben, ansonsten wird 0 zurueckgegeben.
@@ -79,7 +79,7 @@
 			}
 		}
 		
-		/*
+		/**
 		 * Prueft alle $get-Argument auf Korrektheit.
 		 */
 		function validateGET($get) {

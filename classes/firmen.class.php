@@ -1,7 +1,7 @@
 <?php
 	class Firmen
 	{		
-		/*
+		/**
 		 * Konstruktor, macht im moment noch gar nichts.
 		 */
 		function __construct()
@@ -9,7 +9,7 @@
 			
 		}
 		
-		/*
+		/**
 		 * Dekonstruktor, macht im moment noch gar nichts.
 		 */
 		function __destruct()
@@ -17,11 +17,17 @@
 			
 		}
 		
-		/*
+		/**
 		 * Gibt alle Firmen aus der Datenbank zurueck.
 		 */
 		function getAll()
 		{
+			static $array;
+			if(isset($array))
+			{
+				return $array;
+			}
+			
 			$array = array();
 			
 			$result = mysql_query("SELECT * FROM firmen ORDER BY name ASC") or die(mysql_error());
@@ -106,7 +112,7 @@
 			return $array;
 		}
 		
-		/*
+		/**
 		 * Sucht nach einer Firma mit der ID $fid in der Datenbank.
 		 *
 		 * $fid = ID des Themas
@@ -122,7 +128,7 @@
 			return $row;
 		}
 		
-		/*
+		/**
 		 * Sucht alle Firmen die den String $name beinhalten.
 		 *
 		 * $name = Suchstring
