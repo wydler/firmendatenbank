@@ -13,6 +13,10 @@
 		public $schwerpunkte;
 		public $themen;
 		
+		/**
+		 * Konstruktor, stellt die Datenbankverbindung her und erstellt
+		 * die notwendigen Objekte.
+		 */
 		function __construct() {
 			// Verbindungsdaten fuer die Datenbank
 			$dbhost = "localhost";
@@ -51,6 +55,10 @@
 			}
 		}
 		
+		/**
+		 * Destruktor, loescht alle Objekte wieder und trennt die
+		 * Datenbankverbindung.
+		 */
 		function __destruct()
 		{
 			// Objekte loeschen
@@ -63,6 +71,9 @@
 			mysql_close();
 		}
 		
+		/**
+		 * Loescht alle Filtereinstellungen.
+		 */
 		function clearFilter()
 		{
 			// Session loeschen

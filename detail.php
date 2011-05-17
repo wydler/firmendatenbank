@@ -12,6 +12,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.comment_box:gt(4)').hide();
+			$('#toggle_bewertungen').show();
 		});
 		
 		function countChars() {
@@ -22,25 +23,23 @@
 				$("#counter").html("noch " + len + " Zeichen übrig.");
 		}
 		
+		var toggle = false;
 		function toggleBewertungen() {
-			$('.comment_box:gt(4)').toggle('fast');
+			if(toggle == false) {
+				$('.comment_box:gt(4)').show('fast');
+				$('#toggle_bewertungen').html('Neuste anzeigen');
+				toggle = true;
+			} else {
+				$('.comment_box:gt(4)').hide('fast');
+				$('#toggle_bewertungen').html('Alle anzeigen');
+				toggle = false;
+			}
 		}
 	</script>
 </head>
 <body>
 <?php 
-	include 'index.inc.php';
-	$page = new Page();
-	
-	if(!array_key_exists("fid", $page->validGET))
-	{
-		header('Location: index.php');
-	}
-	
-	if(array_key_exists("fid", $_POST) && array_key_exists("text", $_POST))
-	{
-		$result = $page->firmen->addBewertung();
-	}
+	include 'addRating.php';
 ?>
 <div id="container">
 	<div id="banner" class="clear">
@@ -53,7 +52,7 @@
 	</div>
 	<div id="content">
 		<?php $firma = $page->firmen->getByPk($page->validGET['fid']) ?>
-		<h1><?php echo utf8_encode($firma['name']) ?></h1>
+		<h1><?php echo $firma['name'] ?></h1>
 		<div>
 			<table style="width:723px">
 				<colgroup>
@@ -67,15 +66,15 @@
 						<td style="padding:10px;">
 							<h3>Anschrift</h3>
 							<p>
-								<?php echo utf8_encode($firma['strasse']) ?><br />
-								<?php echo utf8_encode($firma['plz']." ".$firma['standort']) ?>
+								<?php echo $firma['strasse'] ?><br />
+								<?php echo $firma['plz']." ".$firma['standort'] ?>
 							</p>
 						</td>
 						<td style="padding:10px;">
 							<h3>Kontakt</h3>
 							<p>
-								<a href="http://<?php echo $firma['url'] ?>"><?php echo utf8_encode($firma['url']) ?></a><br />
-								<a href="mailto:<?php echo $firma['email'] ?>"><?php echo utf8_encode($firma['email']) ?></a>
+								<a href="http://<?php echo $firma['url'] ?>"><?php echo $firma['url'] ?></a><br />
+								<a href="mailto:<?php echo $firma['email'] ?>"><?php echo $firma['email'] ?></a>
 							</p>
 						</td>
 						<td style="padding:10px;">
@@ -136,7 +135,7 @@
 					}
 				?>
 				</div>
-				<div style="text-align:right;font-size:12px"><span onclick="toggleBewertungen()">Ein-/Ausblenden</span></div>
+				<div style="text-align:right;font-size:12px"><a id="toggle_bewertungen" href="#ratings" onclick="toggleBewertungen()">Alle anzeigen</a></div>
 			</div>
 			<div id="column_right">
 				<div id="done">
