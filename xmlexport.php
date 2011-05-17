@@ -75,7 +75,8 @@
         }
 	}
 	
-	$xml->asXML("export.xml");
+	header('Content-Type: text/xml');
+	echo $xml->asXML();
 	
-	header('Location: export.xml');
+	#header('Location: export.xml');
 ?>
