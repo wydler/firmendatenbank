@@ -83,7 +83,7 @@
 		{
 			$array = array();
 			
-			$result = mysql_query("SELECT *, COUNT(tid_fk) as count FROM themen LEFT JOIN behandelt ON tid=tid_fk GROUP BY tid ORDER BY count DESC LIMIT $limit") or die(mysql_error());
+			$result = mysql_query("SELECT *, COUNT(tid_fk) as count FROM themen LEFT JOIN behandelt ON tid=tid_fk GROUP BY tid ORDER BY count DESC,name ASC LIMIT $limit") or die(mysql_error());
 			
 			while($row = mysql_fetch_array($result))
 			{
