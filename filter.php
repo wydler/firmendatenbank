@@ -20,7 +20,7 @@
 					$class = "";
 					$img = "./img/checkbox.png";
 				}
-				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\"/> {$row['name']}</a></li>";
+				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\" alt=\"\"/> {$row['name']}</a></li>";
 			}
 		?>
 		</ul>
@@ -48,11 +48,11 @@
 				{
 					if($k <= $i)
 					{
-						echo '<img src="./img/star.png" />';
+						echo '<img src="./img/star.png" alt="*" />';
 					}
 					else
 					{
-						echo '<img src="./img/star_bw.png" />';
+						echo '<img src="./img/star_bw.png" alt="" />';
 					}
 				}
 				echo "  & mehr</a></li>";
@@ -90,7 +90,7 @@
 					$class = "";
 					$img = "./img/checkbox.png";
 				}
-				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\"/> {$thema['name']}</a></li>";
+				echo "<li class=\"$class\"><a href=\"$url\"><img src=\"$img\" class=\"checkbox\" alt=\"\"/> {$thema['name']}</a></li>";
 			}
 		?>
 		</ul>
