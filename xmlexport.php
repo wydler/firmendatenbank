@@ -63,7 +63,7 @@
 	
 	$result = mysql_query($query) or die(mysql_error());
 	
-	$xml = new SimpleXMLElement("<?xml version='1.0' standalone='yes'?><firmen/>");
+	$xml = new SimpleXMLElement("<?xml version='1.0' standalone='yes'?><firmen xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"xml/firmendb.xsd\"/>");
 	
 	while($data = mysql_fetch_assoc($result))
 	{
@@ -77,18 +77,26 @@
 			}
 		}
 		
-		$row2 = $row->addChild('schwerpunkte');
 		$schwerpunkte = $page->schwerpunkte->getByFID($data['fid']);
-		foreach($schwerpunkte as $schwerpunkt)
+		if(count($schwerpunkte) > 0)
 		{
-			$row2->addChild("schwerpunkt",$schwerpunkt);
+			$row2 = $row->addChild('schwerpunkte');
+			
+			foreach($schwerpunkte as $schwerpunkt)
+			{
+				$row2->addChild("schwerpunkt",$schwerpunkt);
+			}
 		}
 		
-		$row3 = $row->addChild('themen');
 		$themen = $page->themen->getByFID($data['fid']);
-		foreach($themen as $thema)
+		if(count($themen) > 0)
 		{
-			$row3->addChild("thema",$thema['name']);
+			$row3 = $row->addChild('themen');
+			
+			foreach($themen as $thema)
+			{
+				$row3->addChild("thema",$thema['name']);
+			}
 		}
 	}
 	

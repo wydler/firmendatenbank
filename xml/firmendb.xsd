@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:element name="firmen">
-	<xs:complexType>
-	<xs:sequence>
-	<xs:element name="firma" maxOccurs="unbounded">
 		<xs:complexType>
 			<xs:sequence>
-			    <xs:element name="name" type="xs:string"/>
-				<xs:element name="strasse" type="xs:string"/>
-			    <xs:element name="standort" type="xs:string"/>
-			    <xs:element name="plz" type="xs:integer"/>
-			    <xs:element name="url" type="xs:string"/>
-			    <xs:element name="email" type="xs:string"/>
+				<xs:element name="firma" minOccurs="1" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name" type="xs:string"/>
+							<xs:element name="strasse" type="xs:string"/>
+							<xs:element name="standort" type="xs:string"/>
+							<xs:element name="plz" type="xs:integer"/>
+							<xs:element name="url" type="xs:string"/>
+							<xs:element name="email" type="xs:string"/>
+							<xs:element name="schwerpunkte" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="schwerpunkt" minOccurs="1" maxOccurs="unbounded" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="themen" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="thema" minOccurs="1" maxOccurs="unbounded" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>				
+					</xs:complexType>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
-	</xs:element>
-	</xs:sequence>
-	</xs:complexType>
 	</xs:element>
 </xs:schema>
