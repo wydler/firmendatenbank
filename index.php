@@ -8,40 +8,7 @@
 	<meta name="keywords" content="firmen,datenbank,praktikum" />
 	<link rel="stylesheet" href="./style/screen.css" media="screen" />
 	<script src="js/jquery-1.5.2.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#toggle_schwerpunkte').click(function() {
-				var showOrHide = $('#filter_schwerpunkte').css('display');
-				if(showOrHide == 'none') {
-					$('#filter_schwerpunkte').show('fast');
-					$('#toggle_schwerpunkte > img').replaceWith('\<img src=\".\/img\/dots_white_left.png\" alt=\"Clear\" \/\>');
-				} else {
-					$('#toggle_schwerpunkte > img').replaceWith('\<img src=\".\/img\/dots_white_down.png\" alt=\"Clear\" \/\>');
-					$('#filter_schwerpunkte').hide('fast');
-				}
-			});
-			$('#toggle_rating').click(function() {
-				var showOrHide = $('#filter_rating').css('display');
-				if(showOrHide == 'none') {
-					$('#filter_rating').show('fast');
-					$('#toggle_rating > img').replaceWith('\<img src=\".\/img\/dots_white_left.png\" alt=\"Clear\" \/\>');
-				} else {
-					$('#toggle_rating > img').replaceWith('\<img src=\".\/img\/dots_white_down.png\" alt=\"Clear\" \/\>');
-					$('#filter_rating').hide('fast');
-				}
-			});
-			$('#toggle_themen').click(function() {
-				var showOrHide = $('#filter_themen').css('display');
-				if(showOrHide == 'none') {
-					$('#filter_themen').show('fast');
-					$('#toggle_themen > img').replaceWith('\<img src=\".\/img\/dots_white_left.png\" alt=\"Clear\" \/\>');
-				} else {
-					$('#toggle_themen > img').replaceWith('\<img src=\".\/img\/dots_white_down.png\" alt=\"Clear\" \/\>');
-					$('#filter_themen').hide('fast');
-				}
-			});
-		});
-	</script>
+	<script src="js/toggles.min.js"></script>
 </head>
 <body>
 <?php 
@@ -53,11 +20,6 @@
 		$page->clearFilter();
 	}
 ?>
-<!--<div id="debug" class="clear">
-	<?php print_r($_GET); ?><br />
-	<?php print_r($page->validGET) ?><br />
-	<?php print_r($_SESSION) ?><br />
-</div>-->
 <div id="container">
 	<div id="banner" class="clear">
 		<h1>Firmendatenbank</h1>
@@ -66,16 +28,46 @@
 	<div id="content">
 		<h1>&Uuml;bersicht</h1>
 		<div id="abcd">
-			<a href="index.php?<?php echo http_build_query($page->validGET) ?>&amp;page=Alle" class="<?php if($page->validGET['page'] == 'Alle' || $page->validGET['page'] == NULL) echo 'active'; ?>">Alle</a>
-			<?php $regexs = array('0-9'=>'0-9', 'A'=>'AÄ', 'B'=>'B', 'C'=>'C', 'D'=>'D', 'E'=>'E', 'F'=>'F', 'G'=>'G', 'H'=>'H', 'I'=>'I', 'J'=>'J', 'K'=>'K', 'L'=>'L', 'M'=>'M', 'N'=>'N', 'O'=>'OÖ', 'P'=>'P', 'Q'=>'Q', 'R'=>'R', 'S'=>'S', 'T'=>'T', 'U'=>'UÜ', 'V'=>'V', 'W'=>'W', 'X'=>'X', 'Y'=>'Y', 'Z'=>'Z'); ?>
-			<?php foreach($regexs as $name=>$regex) { ?>
-				<a href="index.php?<?php echo http_build_query($page->validGET) ?>&amp;page=<?php echo $regex ?>" class="<?php if($page->validGET['page'] == $regex) echo 'active'; ?>"><?php echo $name ?></a>
-			<?php } ?>
+			<?php
+				$querystring = http_build_query($page->validGET);
+				if(!isset($page->validGET['page']) || ($page->validGET['page'] == "Alle" || $page->validGET['page'] == NULL))
+				{
+					$active = "active";
+				}
+				else
+				{
+					$active = "";
+				}
+				echo "<a href=\"index.php?$querystring&amp;page=Alle\" class=\"$active\">Alle</a> ";
+				
+				$regexs = array(
+					'0-9'=>'0-9', 'A'=>'AÄ', 'B'=>'B', 'C'=>'C', 'D'=>'D', 
+					'E'=>'E', 'F'=>'F', 'G'=>'G', 'H'=>'H', 'I'=>'I',
+					'J'=>'J', 'K'=>'K', 'L'=>'L', 'M'=>'M', 'N'=>'N', 
+					'O'=>'OÖ', 'P'=>'P', 'Q'=>'Q', 'R'=>'R', 'S'=>'S', 
+					'T'=>'T', 'U'=>'UÜ', 'V'=>'V', 'W'=>'W', 'X'=>'X', 
+					'Y'=>'Y', 'Z'=>'Z'
+				);
+			
+				foreach($regexs as $name=>$regex)
+				{
+					$querystring = http_build_query($page->validGET);
+					if(isset($page->validGET['page']) && $page->validGET['page'] == $regex)
+					{
+						$active = "active";
+					}
+					else
+					{
+						$active = "";
+					}
+					echo "<a href=\"index.php?$querystring&amp;page=$regex\" class=\"$active\">$name</a> ";
+				}
+			?>
 		</div>
 		<table class="overview">
 		<colgroup>
-			<col style="width:290px">
-			<col style="width:175px">
+			<col style="width:300px">
+			<col style="width:165px">
 			<col style="width:123px">
 			<col style="width:125px">
 		</colgroup>
@@ -94,56 +86,47 @@
 			foreach($page->firmen->getByFilter($page->validGET) as $row)
 			{
 				$counter += 1;
-				if($counter%2)
-				{
-					echo "<tr class=\"even\">";
-				}
-				else
-				{
-					echo "<tr class=\"odd\">";
-				}
-				echo "<td><a href=\"detail.php?fid={$row['fid']}\">".$row['name']."</a></td>";
-				echo "<td>".$row['standort']."</td>";
+				
+				if($counter%2) { echo "<tr class=\"even\">"; }
+				else { echo "<tr class=\"odd\">"; }
+				
+				echo "<td><a href=\"detail.php?fid={$row['fid']}\">{$row['name']}</a></td>";
+				echo "<td>{$row['standort']}</td>";
 				echo "<td class=\"center\">";
 				
 				$schwerpunkte = $page->schwerpunkte->getByFID($row['fid']);
-				if(in_array("Automatisierung", $schwerpunkte))
+				$map = array(
+					'Automatisierung'=>'icon_a', 
+					'Informationsnetze'=>'icon_i',
+					'Multimedia'=>'icon_m'
+				);
+				
+				foreach($map as $schwerpunkt=>$icon)
 				{
-					echo "<img src=\"./img/icon_a.png\" alt=\"Automatisierungstechnik\" title=\"Automatisierungstechnik\" /> ";
-				}
-				else
-				{
-					echo "<img src=\"./img/icon_a_bw.png\" alt=\"Automatisierungstechnik\" title=\"Automatisierungstechnik\" /> ";
-				}
-				if(in_array("Informationsnetze", $schwerpunkte))
-				{
-					echo "<img src=\"./img/icon_i.png\" alt=\"Informationsnetze\" title=\"Informationsnetze\" /> ";
-				}
-				else
-				{
-					echo "<img src=\"./img/icon_i_bw.png\" alt=\"Informationsnetze\" title=\"Informationsnetze\" /> ";
-				}
-				if(in_array("Multimedia", $schwerpunkte))
-				{
-					echo "<img src=\"./img/icon_m.png\" alt=\"Multimedia\" title=\"Multimedia\" />";
-				}
-				else
-				{
-					echo "<img src=\"./img/icon_m_bw.png\" alt=\"Multimedia\" title=\"Multimedia\" />";
+					if(in_array($schwerpunkt, $schwerpunkte))
+					{
+						echo "<img src=\"./img/$icon.png\" alt=\"$schwerpunkt\" title=\"$schwerpunkt\" /> ";
+					}
+					else
+					{
+						echo "<img src=\"./img/{$icon}_bw.png\" alt=\"$schwerpunkt\" title=\"$schwerpunkt\" /> ";
+					}
 				}
 				echo "</td>";
-				echo "<td class=\"left\">";
-				echo "    <div class=\"rating_bg\" style=\"display:inline-block\">";
-				echo "        <a href=\"detail.php?fid=".$row['fid']."#ratings\"><div class=\"rating_stars\" style=\"width:".($row['bew_avg']*20)."%\"></div></a>";
-				echo "    </div> ({$row['bew_cnt']})";
-				echo "</td>";
-				echo "</tr>";
+				echo "<td class=\"left\"><div class=\"rating_bg\" style=\"display:inline-block\">";
+				echo "<a href=\"detail.php?fid={$row['fid']}#ratings\"><div class=\"rating_stars\" style=\"width:".($row['bew_avg']*20)."%\"></div></a>";
+				echo "</div> ({$row['bew_cnt']})</td></tr>";
 			}
 		?>
 		</tbody>
 		</table>
 		<br />
-		<p style="text-align:right;font-size:0.8em"><a href="xmlexport.php">Liste als XML exportieren</a></p>
+		<?php
+			if($counter != 0)
+			{
+				echo "<p class=\"xmlexport\"><a href=\"xmlexport.php\">Liste als XML exportieren</a></p>";
+			}
+		?>
 	</div>
 </div>
 </body>

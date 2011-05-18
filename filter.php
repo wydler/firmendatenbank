@@ -1,6 +1,6 @@
 <div id="filter">
 	<div class="main">
-	<p class="head">Studienschwerpunkte<span id="toggle_schwerpunkte" style="float:right"><img src="./img/dots_white_left.png" alt="Clear" /></span></p>
+	<p class="head">Studienschwerpunkte<span id="toggle_schwerpunkte" class="fl_right"><img src="./img/dots_white_left.png" alt="Ein-/Ausblenden" /></span></p>
 	<div id="filter_schwerpunkte">
 		<ul>
 		<?php
@@ -27,7 +27,7 @@
 	</div>
 	</div>
 	<div class="main">
-	<p class="head">Bewertung<span id="toggle_rating" style="float:right"><img src="./img/dots_white_left.png" alt="Clear" /></span></p>
+	<p class="head">Bewertung<span id="toggle_rating" class="fl_right"><img src="./img/dots_white_left.png" alt="Ein-/Ausblenden" /></span></p>
 	<div id="filter_rating">
 		<ul>
 		<?php
@@ -42,7 +42,7 @@
 				{
 					$class = "";
 				}
-
+				
 				echo "<li class=\"$class\"><a href=\"$url\">";
 				for($k=1; $k<=5; $k++)
 				{
@@ -55,9 +55,6 @@
 						echo '<img src="./img/star_bw.png" />';
 					}
 				}
-				$query = "SELECT * FROM firmen WHERE bew_avg >= $i";
-				$result = mysql_query($query) or die(mysql_error());
-				$num_rows = mysql_num_rows($result); 
 				echo "  & mehr</a></li>";
 			}
 		?>
@@ -65,7 +62,7 @@
 	</div>
 	</div>
 	<div class="main">
-	<p class="head">Themengebiete<span id="toggle_themen" style="float:right"><img src="./img/dots_white_left.png" alt="Clear" /></span></p>
+	<p class="head">Themengebiete<span id="toggle_themen" class="fl_right"><img src="./img/dots_white_left.png" alt="Ein-/Ausblenden" /></span></p>
 	<div id="filter_themen">
 		<ul>
 		<?php
@@ -112,7 +109,7 @@
 		?>
 	</div>
 	</div>
-	<div style="text-align:right;padding:0;margin:0;line-height:0">
-		<a href="index.php?clearfilter=1"><img src="./img/arrow_undo.png" alt="Clear" /></a>
+	<div class="right">
+		<a href="index.php?clearfilter=1"><img src="./img/arrow_undo.png" alt="Zurücksetzten" /></a>
 	</div>
 </div>

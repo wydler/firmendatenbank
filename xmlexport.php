@@ -6,7 +6,7 @@
 	$get = $page->validGET;
 
 	$array = array();
-	$query = "SELECT f.name, f.strasse, f.standort, f.plz, f.url, f.email FROM firmen f ";
+	$query = "SELECT f.fid, f.name, f.strasse, f.standort, f.plz, f.url, f.email FROM firmen f ";
 	
 	if(array_key_exists("rating", $get))
 	{
@@ -68,11 +68,28 @@
 	while($data = mysql_fetch_assoc($result))
 	{
 		//Child mit den Inhalt des Spaltennamens füllen  
-        $row = $xml->addChild('firma');
-        foreach ($data as $key => $val){
-            //Werte in das Child eintragen  
-            $row->addChild($key,$val);
-        }
+		$row = $xml->addChild('firma');
+		foreach($data as $key => $val){
+			//Werte in das Child eintragen
+			if($key != "fid")
+			{
+				$row->addChild($key,$val);
+			}
+		}
+		
+		$row2 = $row->addChild('schwerpunkte');
+		$schwerpunkte = $page->schwerpunkte->getByFID($data['fid']);
+		foreach($schwerpunkte as $schwerpunkt)
+		{
+			$row2->addChild("schwerpunkt",$schwerpunkt);
+		}
+		
+		$row3 = $row->addChild('themen');
+		$themen = $page->themen->getByFID($data['fid']);
+		foreach($themen as $thema)
+		{
+			$row3->addChild("thema",$thema['name']);
+		}
 	}
 	
 	header('Content-Type: text/xml');

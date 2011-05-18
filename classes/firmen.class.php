@@ -171,7 +171,7 @@
 			$bewertung = $_POST['rating'];
 			$kommentar = mysql_real_escape_string($_POST['text']);
 			
-			if($bewertung >= 0 && $bewertung <= 5 && strlen($kommentar) <= 50)
+			if($bewertung >= 1 && $bewertung <= 5 && strlen($kommentar) <= 50)
 			{
 				mysql_query("INSERT INTO bewertungen (bewertung, kommentar, gehoertzu_fid_fk) VALUES ($bewertung, '{$kommentar}', $fid)") or die(mysql_error());
 				

@@ -19,7 +19,7 @@
 		 */
 		function __construct() {
 			// Verbindungsdaten fuer die Datenbank
-			$dbhost = "neptun.fbe.fh-weingarten.de:3306";
+			$dbhost = "localhost";
 			$dbname = "webprog_07";
 			$dbuser = "webprog_07";
 			$dbpass = "webprog_07";

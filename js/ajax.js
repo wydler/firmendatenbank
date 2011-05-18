@@ -7,7 +7,7 @@ $('#submit_rating').click(function () {
 	dataString = $("#rating_form").serialize();
 	
 	$.ajax({
-		url: "addRating2.php",
+		url: "addRating.php",
 		type: "post",
 		data: dataString,
 		// callback handler that will be called on success
