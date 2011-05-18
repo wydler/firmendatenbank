@@ -8,7 +8,7 @@
 	<meta name="keywords" content="firmen,datenbank,praktikum" />
 	<link rel="stylesheet" href="./style/screen.css" media="screen" />
 	<script src="js/jquery-1.5.2.min.js"></script>
-	<script src="js/ajax.min.js"></script>
+	<script src="js/ajax.js"></script>
 	<script src="js/toggles.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {

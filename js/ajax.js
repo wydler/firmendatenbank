@@ -31,7 +31,8 @@ $('#submit_rating').click(function () {
 			$('#rating_all').width(c*16);
 			$('#rating_cnt').html(rnt_cnt);
 			// insert new rating
-			$('<div class="comment_box"><div class="rating_bg"><div class="rating_stars" style="width:'+rating.val()*20+'%"></div></div><p>'+comment.val()+'</p></div><hr />').insertBefore('#comments');
+			var tmp = comment.val().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+			$('<div class="comment_box"><div class="rating_bg"><div class="rating_stars" style="width:'+rating.val()*20+'%"></div></div><p>'+tmp+'</p></div><hr />').insertBefore('#comments');
 		},
 		// callback handler that will be called on error
 		error: function(jqXHR, textStatus, errorThrown){

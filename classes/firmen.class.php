@@ -169,7 +169,8 @@
 		{
 			$fid = $_POST['fid'];
 			$bewertung = $_POST['rating'];
-			$kommentar = mysql_real_escape_string($_POST['text']);
+			$tmp = mysql_real_escape_string($_POST['text']);
+			$kommentar = htmlentities($tmp);
 			
 			if($bewertung >= 1 && $bewertung <= 5 && strlen($kommentar) <= 50)
 			{
