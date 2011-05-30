@@ -169,11 +169,13 @@
 		{
 			$fid = $_POST['fid'];
 			$bewertung = $_POST['rating'];
-			$tmp = mysql_real_escape_string($_POST['text']);
-			$kommentar = htmlentities($tmp);
+			$text = $_POST['text'];
 			
-			if($bewertung >= 1 && $bewertung <= 5 && strlen($kommentar) <= 50)
+			if($bewertung >= 1 && $bewertung <= 5 && strlen($text) <= 50)
 			{
+				$tmp = mysql_real_escape_string($text);
+				$kommentar = htmlentities($tmp);
+			
 				mysql_query("INSERT INTO bewertungen (bewertung, kommentar, gehoertzu_fid_fk) VALUES ($bewertung, '{$kommentar}', $fid)") or die(mysql_error());
 				
 				$array = array();

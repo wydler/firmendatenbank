@@ -12,27 +12,38 @@ $('#submit_rating').click(function () {
 		data: dataString,
 		// callback handler that will be called on success
 		success: function(response, textStatus, jqXHR){
-			// hide form
-			$('#form').fadeOut('slow');
-			// show confirmation
-			$('#done').fadeIn('slow');
-			
-			// parse rating avg and cnt
-			var rnt_cnt = parseInt($('#rating_cnt').html());
-			var rnt_avg = parseInt($('#rating_all').width())/16;
-			var new_rnt = parseInt(rating.val());
-			
-			// calulate new rating avg
-			var a = rnt_cnt * rnt_avg;
-			var b = a + new_rnt;
-			var c = b / ++rnt_cnt;
-			
-			// change rating avg
-			$('#rating_all').width(c*16);
-			$('#rating_cnt').html(rnt_cnt);
 			// insert new rating
-			var tmp = comment.val().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-			$('<div class="comment_box"><div class="rating_bg"><div class="rating_stars" style="width:'+rating.val()*20+'%"></div></div><p>'+tmp+'</p></div><hr />').insertBefore('#comments');
+			if($("#comment_text").val().length <= 50)
+			{
+				// hide form
+				$('#form').fadeOut('slow');
+				// show confirmation
+				$('#done').fadeIn('slow');
+			
+				// parse rating avg and cnt
+				var rnt_cnt = parseInt($('#rating_cnt').html());
+				var rnt_avg = parseInt($('#rating_all').width())/16;
+				var new_rnt = parseInt(rating.val());
+			
+				// calulate new rating avg
+				var a = rnt_cnt * rnt_avg;
+				var b = a + new_rnt;
+				var c = b / ++rnt_cnt;
+			
+				// change rating avg
+				$('#rating_all').width(c*16);
+				$('#rating_cnt').html(rnt_cnt);
+			
+				var tmp = comment.val().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+				$('<div class="comment_box"><div class="rating_bg"><div class="rating_stars" style="width:'+rating.val()*20+'%"></div></div><p>'+tmp+'</p></div><hr />').insertBefore('#comments');
+			}
+			else
+			{
+				$('#done').html('Der eingegebene Kommentar ist zu lang (über 50 Zeichen).');
+				$('#done').css('color','#fff');
+				$('#done').css('background','#c00');
+				$('#done').fadeIn('slow');
+			}
 		},
 		// callback handler that will be called on error
 		error: function(jqXHR, textStatus, errorThrown){
