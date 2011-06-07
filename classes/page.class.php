@@ -1,12 +1,11 @@
 <?php
-	require_once 'validator.class.php';
-	require_once 'firmen.class.php';
-	require_once 'schwerpunkte.class.php';
-	require_once 'themen.class.php';
+	include 'validator.class.php';
+	include 'firmen.class.php';
+	include 'schwerpunkte.class.php';
+	include 'themen.class.php';
 	
 	class Page {
 		public $validGET;
-		public $validPOST;
 		
 		public $validator;
 		public $firmen;

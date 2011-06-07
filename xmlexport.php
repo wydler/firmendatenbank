@@ -1,5 +1,5 @@
 <?php 
-	require_once 'index.inc.php';
+	require_once 'classes/page.class.php';
 	
 	// Seitenobjekt erstellen
 	$page = new Page();

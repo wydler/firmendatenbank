@@ -2,6 +2,7 @@
 	class Validator 
 	{
 		public $validGET;
+		public $validPOST;
 		
 		private $firmen;
 		private $schwerpunkte;
@@ -101,7 +102,7 @@
 			
 			if(array_key_exists("rating", $post))
 			{
-				if($this->validateRating($get['rating']))
+				if($post['rating'] >= 1 && $post['rating'] <= 5)
 				{
 					$validPOST['rating'] = $post['rating'];
 				}
@@ -135,6 +136,8 @@
 			{
 				return FALSE;
 			}
+			
+			return $validPOST;
 		}
 		
 		/**

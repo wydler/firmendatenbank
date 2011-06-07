@@ -165,18 +165,15 @@
 		/**
 		 * Fuegt eine neue Bewertung hinzu.
 		 */
-		function addBewertung()
+		function addBewertung($post)
 		{
-			$fid = $_POST['fid'];
-			$bewertung = $_POST['rating'];
-			$text = $_POST['text'];
-			
-			if($bewertung >= 1 && $bewertung <= 5 && strlen($text) <= 50)
+			if(isset($post))
 			{
-				$tmp = mysql_real_escape_string($text);
-				$kommentar = htmlentities($tmp);
+				$fid = $post['fid'];
+				$bewertung = $post['rating'];
+				$kommentar = $post['text'];
 			
-				mysql_query("INSERT INTO bewertungen (bewertung, kommentar, gehoertzu_fid_fk) VALUES ($bewertung, '{$kommentar}', $fid)") or die(mysql_error());
+				mysql_query("INSERT INTO bewertungen (bewertung, kommentar, gehoertzu_fid_fk) VALUES ($bewertung, '$kommentar', $fid)") or die(mysql_error());
 				
 				$array = array();
 				$result = mysql_query("SELECT count(bewertung) as cnt, avg(bewertung) as avg FROM bewertungen WHERE gehoertzu_fid_fk = $fid") or die(mysql_error());
