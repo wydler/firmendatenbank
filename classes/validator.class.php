@@ -80,6 +80,9 @@
 			}
 		}
 		
+		/**
+		 * Validiert alle $POST-Daten für neue Bewertungen.
+		 */
 		function validateRatingPOST($post)
 		{
 			$validPOST = array();

@@ -102,27 +102,12 @@ h3 {
 	margin: 0 auto;
 }
 
-#header {
-}
-
-#search {
-	float: right;
-	padding: 10px;
-	margin-right: 20px;
-}
-#search input {
-	padding: 3px;
-	font-size: 0.8em;
-	border: 1px solid #ccc;
-}
-#header img#logo {
-	float: left;
-}
 #banner {
 	background: #800080 url("../img/banner.png");
 	color: #fff;
 	height: 138px;
 }
+
 #banner h1 {
 	width: 200px;
 	font-size: 1.4em;
@@ -131,6 +116,7 @@ h3 {
 	margin-left: 260px;
 	padding-top: 90px;
 }
+
 #filter {
 	float: left;
 	width: 221px;
@@ -138,12 +124,14 @@ h3 {
 	margin: 10px 0px;
 	border-right: 1px solid #ccc;
 }
+
 #filter .main {
 	margin-top: 1.0em;
 	margin-bottom: 1.0em;
 	font-size: 0.8em;
 	line-height: 1.2em;
 }
+
 #filter .head {
 	color: #fff;
 	font-size: 1.0em;
