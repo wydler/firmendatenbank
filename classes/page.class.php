@@ -24,11 +24,11 @@
 			$dbpass = "webprog_07";
 			
 			// Datenkbankverbindung aufbauen
-			mysql_connect($dbhost,$dbuser,$dbpass) or die(mysql_error());
+			mysql_connect($dbhost,$dbuser,$dbpass) or die("connect : ".mysql_error());
 			// Datenbank auswaehlen
-			mysql_select_db($dbname) or die(mysql_error());
+			mysql_select_db($dbname) or die("select_db : ".mysql_error());
 			
-			mysql_query("SET NAMES utf8") or die(mysql_error());
+			mysql_query("SET NAMES utf8") or die("setnames : ".mysql_error());
 			
 			// Objekte erstellen
 			$this->validator = new Validator();

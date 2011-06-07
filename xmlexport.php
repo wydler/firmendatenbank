@@ -1,11 +1,10 @@
 <?php 
-	require_once 'classes/page.class.php';
+	include 'classes/page.class.php';
 	
 	// Seitenobjekt erstellen
 	$page = new Page();
 	$get = $page->validGET;
 
-	$array = array();
 	$query = "SELECT f.fid, f.name, f.strasse, f.standort, f.plz, f.url, f.email FROM firmen f ";
 	
 	if(array_key_exists("rating", $get))
@@ -20,14 +19,14 @@
 	
 	if(array_key_exists("page", $get))
 	{
-		$page = $get['page'];
-		if($page == NULL || $page == 'Alle')
+		$char = $get['page'];
+		if($char == NULL || $char == 'Alle')
 		{
-			$query .= '';
+			$query .= ' ';
 		}
 		else
 		{
-			$query .= "AND f.name REGEXP '^[$page]' ";
+			$query .= "AND f.name REGEXP '^[$char]' ";
 		}
 	}
 	
@@ -55,13 +54,13 @@
 		}
 		if(isset($get['themen']))
 		{
-			$query .= "f.fid IN (SELECT fid_fk FROM behandelt b INNER JOIN themen t ON t.tid=b.tid_fk WHERE t.name=''))";
+			$query .= "f.fid IN (SELECT fid_fk FROM behandelt b INNER JOIN themen t ON t.tid=b.tid_fk WHERE t.name='')) ";
 		}
 	}
 	
 	$query .= "GROUP BY f.fid ORDER BY f.name ASC";
 	
-	$result = mysql_query($query) or die(mysql_error());
+	$result = mysql_query($query) or die(mysql_error()." : ".$query);
 	
 	$xml = new SimpleXMLElement("<?xml version='1.0' standalone='yes'?><firmen xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"xml/firmendb.xsd\"/>");
 	
