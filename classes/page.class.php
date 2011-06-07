@@ -1,8 +1,8 @@
 <?php
-	require_once 'classes/validator.class.php';
-	require_once 'classes/firmen.class.php';
-	require_once 'classes/schwerpunkte.class.php';
-	require_once 'classes/themen.class.php';
+	require_once 'validator.class.php';
+	require_once 'firmen.class.php';
+	require_once 'schwerpunkte.class.php';
+	require_once 'themen.class.php';
 	
 	class Page {
 		public $validGET;

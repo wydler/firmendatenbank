@@ -79,10 +79,69 @@
 			}
 		}
 		
+		function validateRatingPOST($post)
+		{
+			$validPOST = array();
+			
+			if(array_key_exists("fid", $post))
+			{
+				if($this->validateFirma($post['fid']))
+				{
+					$validPOST['fid'] = $post['fid'];
+				}
+				else
+				{
+					return FALSE;
+				}
+			}
+			else
+			{
+				return FALSE;
+			}
+			
+			if(array_key_exists("rating", $post))
+			{
+				if($this->validateRating($get['rating']))
+				{
+					$validPOST['rating'] = $post['rating'];
+				}
+				else
+				{
+					return FALSE;
+				}
+			}
+			else
+			{
+				return FALSE;
+			}
+			
+			if(array_key_exists("text", $post))
+			{
+				$text = $post['text'];
+				
+				if(strlen($text) <= 50)
+				{
+					$tmp = mysql_real_escape_string($text);
+					$tmp2 = htmlentities($tmp);
+					
+					$validPOST['text'] = $tmp2;
+				}
+				else
+				{
+					return FALSE;
+				}
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+		
 		/**
 		 * Prueft alle $get-Argument auf Korrektheit.
 		 */
-		function validateGET($get) {
+		function validateGET($get)
+		{
 			$validGET = array();
 			
 			if(array_key_exists("fid", $get))

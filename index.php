@@ -12,7 +12,7 @@
 </head>
 <body>
 <?php 
-	include 'index.inc.php';
+	include 'classes/page.class.php';
 	$page = new Page();
 	
 	if(isset($_GET['clearfilter']) && $_GET['clearfilter'] == 1)
