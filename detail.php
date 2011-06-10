@@ -34,12 +34,12 @@
 <div id="container">
 	<div id="banner" class="clear">
 		<h1>Firmendatenbank</h1>
-	</div>
+	</div><!-- BANNER -->
 	<div id="filter">
 		<div class="main">
 			<p class="head"><a href="index.php">Zurück</a></p>
 		</div>
-	</div>
+	</div><!-- FILTER -->
 	<div id="content">
 		<?php $firma = $page->firmen->getByPk($page->validGET['fid']) ?>
 		<h1><?php echo $firma['name'] ?></h1>
@@ -95,7 +95,7 @@
 				</tbody>
 			</table>
 			<br />
-		</div>
+		</div><!-- CONTENT -->
 		<div id="ratings">
 			<div id="column_left">
 				<h3>Gesamtbewertung</h3>
@@ -122,7 +122,7 @@
 				?>
 				</div>
 				<div class="toggle_bewertungen"><a id="toggle_bewertungen" href="#ratings">Alle anzeigen</a></div>
-			</div>
+			</div><!-- COMLUMN_LEFT -->
 			<div id="column_right">
 				<div id="done">
 					<b>Vielen Dank.<br />Wir haben Ihre Bewertung erhalten.</b>
@@ -149,10 +149,10 @@
 							<input type="submit" name="submit_rating" id="submit_rating" value="Absenden">
 						</p>
 					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+				</div><!-- FORM -->
+			</div><!-- COLUMN_RIGHT -->
+		</div><!-- RATINGS -->
+	</div><!-- CONTENT -->
+</div><!-- CONTAINER -->
 </body>
 </html>

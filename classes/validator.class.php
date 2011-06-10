@@ -9,7 +9,7 @@
 		private $themen;
 		
 		/**
-		 * Konstruktor, macht im moment noch gar nichts.
+		 * Erstellt die benoetigten Objekte.
 		 */
 		function __construct()
 		{
@@ -19,7 +19,7 @@
 		}
 		
 		/**
-		 * Dekonstruktor, macht im moment noch gar nichts.
+		 * Zerstört alle erstellen Objekte wieder.
 		 */
 		function __destruct()
 		{
@@ -49,6 +49,8 @@
 		
 		/**
 		 * Prueft, ob die Firma in der Datenbank vorhanden ist.
+		 *
+		 * $fid = Firmen-ID
 		 */
 		function validateFirma($fid)
 		{
@@ -66,6 +68,8 @@
 		
 		/**
 		 * Prueft, ob ein gueltiger Anfangsbuchstabe gegeben ist.
+		 *
+		 * $regex = Regular-Expression
 		 */
 		function validatePage($regex)
 		{
@@ -82,11 +86,14 @@
 		
 		/**
 		 * Validiert alle $POST-Daten für neue Bewertungen.
+		 *
+		 * $post = POST-Daten
 		 */
 		function validateRatingPOST($post)
 		{
 			$validPOST = array();
 			
+			// Firmen-ID prüfen.
 			if(array_key_exists("fid", $post))
 			{
 				if($this->validateFirma($post['fid']))
@@ -103,6 +110,7 @@
 				return FALSE;
 			}
 			
+			// Bewertung prüfen.
 			if(array_key_exists("rating", $post))
 			{
 				if($post['rating'] >= 1 && $post['rating'] <= 5)
@@ -119,13 +127,16 @@
 				return FALSE;
 			}
 			
+			// Bewertungstext prüfen.
 			if(array_key_exists("text", $post))
 			{
 				$text = $post['text'];
 				
 				if(strlen($text) <= 50)
 				{
+					// SQL-Kommandos escapen.
 					$tmp = mysql_real_escape_string($text);
+					// HTML-Kommandos escapen.
 					$tmp2 = htmlentities($tmp);
 					
 					$validPOST['text'] = $tmp2;
@@ -145,6 +156,8 @@
 		
 		/**
 		 * Prueft alle $get-Argument auf Korrektheit.
+		 *
+		 * $get = GET-Daten
 		 */
 		function validateGET($get)
 		{

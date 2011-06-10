@@ -47,7 +47,6 @@ $('#submit_rating').click(function () {
 		},
 		// callback handler that will be called on error
 		error: function(jqXHR, textStatus, errorThrown){
-			// log the error to the console
 			//alert("error: " + errorThrown);
 			$('#done').html('Sorry, something went wrong.<br />A team of highly trained monkeys has been dispatched to deal with this situation.<br /><br />'+errorThrown);
 			$('#done').css('color','#fff');

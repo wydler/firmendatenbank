@@ -83,7 +83,7 @@
 		 * Falls $max gesetzt ist, werden die $max-haeufigsten
 		 * Themen zurueckegeben.
 		 *
-		 * $limit = Anzahl Elemente (Default = NULL)
+		 * $limit = Anzahl Elemente (Default = 10)
 		 */
 		function getTop10($limit = 10)
 		{

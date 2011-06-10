@@ -23,7 +23,7 @@
 <div id="container">
 	<div id="banner" class="clear">
 		<h1>Firmendatenbank</h1>
-	</div>
+	</div><!-- BANNER -->
 	<?php include 'filter.php' ?>
 	<div id="content">
 		<h1>&Uuml;bersicht</h1>
@@ -65,60 +65,60 @@
 			?>
 		</div>
 		<table class="overview">
-		<colgroup>
-			<col style="width:300px">
-			<col style="width:165px">
-			<col style="width:123px">
-			<col style="width:125px">
-		</colgroup>
-		<thead>
-			<tr>
-			<td>Name</td>
-			<td>Ort</td>
-			<td>Schwerpunkte</td>
-			<td>Bewertung</td>
-			</tr>
-		</thead>
-		<tbody>
-		<?php
-			$counter = 0;
+			<colgroup>
+				<col style="width:300px">
+				<col style="width:165px">
+				<col style="width:123px">
+				<col style="width:125px">
+			</colgroup>
+			<thead>
+				<tr>
+				<td>Name</td>
+				<td>Ort</td>
+				<td>Schwerpunkte</td>
+				<td>Bewertung</td>
+				</tr>
+			</thead>
+			<tbody>
+			<?php
+				$counter = 0;
 			
-			foreach($page->firmen->getByFilter($page->validGET) as $row)
-			{
-				$counter += 1;
-				
-				if($counter%2) { echo "<tr class=\"even\">"; }
-				else { echo "<tr class=\"odd\">"; }
-				
-				echo "<td><a href=\"detail.php?fid={$row['fid']}\">{$row['name']}</a></td>";
-				echo "<td>{$row['standort']}</td>";
-				echo "<td class=\"center\">";
-				
-				$schwerpunkte = $page->schwerpunkte->getByFID($row['fid']);
-				$map = array(
-					'Automatisierung'=>'icon_a', 
-					'Informationsnetze'=>'icon_i',
-					'Multimedia'=>'icon_m'
-				);
-				
-				foreach($map as $schwerpunkt=>$icon)
+				foreach($page->firmen->getByFilter($page->validGET) as $row)
 				{
-					if(in_array($schwerpunkt, $schwerpunkte))
+					$counter += 1;
+				
+					if($counter%2) { echo "<tr class=\"even\">"; }
+					else { echo "<tr class=\"odd\">"; }
+				
+					echo "<td><a href=\"detail.php?fid={$row['fid']}\">{$row['name']}</a></td>";
+					echo "<td>{$row['standort']}</td>";
+					echo "<td class=\"center\">";
+				
+					$schwerpunkte = $page->schwerpunkte->getByFID($row['fid']);
+					$map = array(
+						'Automatisierung'=>'icon_a', 
+						'Informationsnetze'=>'icon_i',
+						'Multimedia'=>'icon_m'
+					);
+				
+					foreach($map as $schwerpunkt=>$icon)
 					{
-						echo "<img src=\"./img/$icon.png\" alt=\"$schwerpunkt\" title=\"$schwerpunkt\" /> ";
+						if(in_array($schwerpunkt, $schwerpunkte))
+						{
+							echo "<img src=\"./img/$icon.png\" alt=\"$schwerpunkt\" title=\"$schwerpunkt\" /> ";
+						}
+						else
+						{
+							echo "<img src=\"./img/{$icon}_bw.png\" alt=\"$schwerpunkt\" title=\"$schwerpunkt\" /> ";
+						}
 					}
-					else
-					{
-						echo "<img src=\"./img/{$icon}_bw.png\" alt=\"$schwerpunkt\" title=\"$schwerpunkt\" /> ";
-					}
+					echo "</td>";
+					echo "<td class=\"left\"><div class=\"rating_bg\" style=\"display:inline-block\">";
+					echo "<a href=\"detail.php?fid={$row['fid']}#ratings\"><div class=\"rating_stars\" style=\"width:".($row['bew_avg']*20)."%\"></div></a>";
+					echo "</div> ({$row['bew_cnt']})</td></tr>";
 				}
-				echo "</td>";
-				echo "<td class=\"left\"><div class=\"rating_bg\" style=\"display:inline-block\">";
-				echo "<a href=\"detail.php?fid={$row['fid']}#ratings\"><div class=\"rating_stars\" style=\"width:".($row['bew_avg']*20)."%\"></div></a>";
-				echo "</div> ({$row['bew_cnt']})</td></tr>";
-			}
-		?>
-		</tbody>
+			?>
+			</tbody>
 		</table>
 		<br />
 		<?php
@@ -127,8 +127,8 @@
 				echo "<p class=\"xmlexport\"><a href=\"xmlexport.php\">Liste als XML exportieren</a></p>";
 			}
 		?>
-	</div>
-</div>
+	</div><!-- CONTENT -->
+</div><!-- CONTAINER -->
 </body>
 </html>
 <?php unset($page) ?>

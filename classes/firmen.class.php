@@ -43,6 +43,8 @@
 		/**
 		 * Gibt alle Firmen aus der Datenbank zurueck, die den Filterkriterien
 		 * entsprechen.
+		 *
+		 * $get = GET-Daten
 		 */
 		function getByFilter($get)
 		{
@@ -149,6 +151,9 @@
 		
 		/**
 		 * Gibt alle Bewertungen zu einer bestimmenten Firma zurueck.
+		 *
+		 * $fid = Firmen-ID
+		 * $limit = Anzahl Datensaetze
 		 */
 		function getBewertungen($fid, $limit = NULL)
 		{
@@ -164,6 +169,8 @@
 		
 		/**
 		 * Fuegt eine neue Bewertung hinzu.
+		 *
+		 * $post = Validierte POST-Daten
 		 */
 		function addBewertung($post)
 		{
