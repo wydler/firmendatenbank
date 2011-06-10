@@ -13,8 +13,10 @@
 <body>
 <?php 
 	include 'classes/page.class.php';
+	// Page-Objekt erzeugen.
 	$page = new Page();
 	
+	// Filtereinstellungen löschen, wenn GET-Parameter gesetzt ist.
 	if(isset($_GET['clearfilter']) && $_GET['clearfilter'] == 1)
 	{
 		$page->clearFilter();
@@ -29,6 +31,7 @@
 		<h1>&Uuml;bersicht</h1>
 		<div id="abcd">
 			<?php
+				// Link mit GET-Parameter generieren.
 				$querystring = http_build_query($page->validGET);
 				if(!isset($page->validGET['page']) || ($page->validGET['page'] == "Alle" || $page->validGET['page'] == NULL))
 				{
@@ -83,10 +86,11 @@
 			<?php
 				$counter = 0;
 			
+				// Firmen für den Filter ausgeben.
 				foreach($page->firmen->getByFilter($page->validGET) as $row)
 				{
+					// Unterschiedliche Tabellenhintergrundfarben setzten.
 					$counter += 1;
-				
 					if($counter%2) { echo "<tr class=\"even\">"; }
 					else { echo "<tr class=\"odd\">"; }
 				
@@ -94,6 +98,7 @@
 					echo "<td>{$row['standort']}</td>";
 					echo "<td class=\"center\">";
 				
+					// Schwerpunkte zur Firma suchen.
 					$schwerpunkte = $page->schwerpunkte->getByFID($row['fid']);
 					$map = array(
 						'Automatisierung'=>'icon_a', 
@@ -101,6 +106,7 @@
 						'Multimedia'=>'icon_m'
 					);
 				
+					// Schwerpunkt-Icons ausgeben.
 					foreach($map as $schwerpunkt=>$icon)
 					{
 						if(in_array($schwerpunkt, $schwerpunkte))
@@ -113,6 +119,7 @@
 						}
 					}
 					echo "</td>";
+					// Bewertungsdurchschnitt und -anzahl ausgeben.
 					echo "<td class=\"left\"><div class=\"rating_bg\" style=\"display:inline-block\">";
 					echo "<a href=\"detail.php?fid={$row['fid']}#ratings\"><div class=\"rating_stars\" style=\"width:".($row['bew_avg']*20)."%\"></div></a>";
 					echo "</div> ({$row['bew_cnt']})</td></tr>";
@@ -122,6 +129,7 @@
 		</table>
 		<br />
 		<?php
+			// Wenn Firmen ausgeben sind, soll der Exportieren-Link ausgegeben werden.
 			if($counter != 0)
 			{
 				echo "<p class=\"xmlexport\"><a href=\"xmlexport.php\">Liste als XML exportieren</a></p>";

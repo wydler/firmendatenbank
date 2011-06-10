@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	// Schwerpunktfilter ein- und ausblenden.
 	$('#toggle_schwerpunkte').click(function() {
 		var showOrHide = $('#filter_schwerpunkte').css('display');
 		if(showOrHide == 'none') {
@@ -10,6 +11,7 @@ $(document).ready(function() {
 		}
 	});
 	
+	// Bewertungsfilter ein- und ausblenden.
 	$('#toggle_rating').click(function() {
 		var showOrHide = $('#filter_rating').css('display');
 		if(showOrHide == 'none') {
@@ -21,6 +23,7 @@ $(document).ready(function() {
 		}
 	});
 	
+	// Themenfilter ein- und ausblenden.
 	$('#toggle_themen').click(function() {
 		var showOrHide = $('#filter_themen').css('display');
 		if(showOrHide == 'none') {
@@ -32,14 +35,15 @@ $(document).ready(function() {
 		}
 	});
 	
+	// Firmenbewertungen ein- und ausblenden.
 	var toggle = false;
 	$('#toggle_bewertungen').click(function() {
 		if(toggle == false) {
-			$('.comment_box:gt(4)').show('fast');
+			$('.comment_box:gt(9)').show('fast');
 			$('#toggle_bewertungen').html('Neuste anzeigen');
 			toggle = true;
 		} else {
-			$('.comment_box:gt(4)').hide('fast');
+			$('.comment_box:gt(9)').hide('fast');
 			$('#toggle_bewertungen').html('Alle anzeigen');
 			toggle = false;
 		}

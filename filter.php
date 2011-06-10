@@ -4,6 +4,7 @@
 		<div id="filter_schwerpunkte">
 			<ul>
 			<?php
+				// Alle Schwerpunkte ausgeben.
 				foreach($page->schwerpunkte->getAll() as $row)
 				{
 					$url = "index.php?".http_build_query($page->validGET);
@@ -31,6 +32,7 @@
 		<div id="filter_rating">
 			<ul>
 			<?php
+				// Filter für Bewertungsdurchschnitt.
 				for($i=4; $i >= 0; $i--)
 				{
 					$url = "index.php?".http_build_query($page->validGET)."&amp;rating=".$i;
@@ -66,6 +68,7 @@
 		<div id="filter_themen">
 			<ul>
 			<?php
+				// Themen ausgeben, nur Top10 oder alle.
 				if(isset($page->validGET['showallthemen']) && $page->validGET['showallthemen'] == 1)
 				{
 					$themen = $page->themen->getAll();

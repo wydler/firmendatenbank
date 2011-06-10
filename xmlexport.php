@@ -5,6 +5,7 @@
 	$page = new Page();
 	$get = $page->validGET;
 
+	// SQL-Query generieren.
 	$query = "SELECT f.fid, f.name, f.strasse, f.standort, f.plz, f.url, f.email FROM firmen f ";
 	
 	if(array_key_exists("rating", $get))
@@ -60,16 +61,18 @@
 	
 	$query .= "GROUP BY f.fid ORDER BY f.name ASC";
 	
+	// SQL-Query ausführen.
 	$result = mysql_query($query) or die(mysql_error()." : ".$query);
 	
+	// XML-Objekt erzeugen.
 	$xml = new SimpleXMLElement("<?xml version='1.0' standalone='yes'?><firmen xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"xml/firmendb.xsd\"/>");
 	
+	// Child-Knoten mit den Inhalt des Spaltennamens füllen  
 	while($data = mysql_fetch_assoc($result))
 	{
-		//Child mit den Inhalt des Spaltennamens füllen  
+		// Werte in den Child-Knoten einfügen.
 		$row = $xml->addChild('firma');
 		foreach($data as $key => $val){
-			//Werte in das Child eintragen
 			if($key != "fid")
 			{
 				$row->addChild($key,$val);
@@ -99,8 +102,12 @@
 		}
 	}
 	
+	// Header-Typ auf XML ändern.
 	header('Content-Type: text/xml');
+	// XML-Objekt ausgeben.
 	echo $xml->asXML();
 	
+	// Alternative zu Header-Typ ändern:
+	// XML in neue Datei schreiben und dann die Datei öffnen.
 	#header('Location: export.xml');
 ?>

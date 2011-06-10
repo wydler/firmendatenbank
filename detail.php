@@ -8,16 +8,18 @@
 	<meta name="keywords" content="firmen,datenbank,praktikum" />
 	<link rel="stylesheet" href="./style/screen.css" media="screen" />
 	<script src="js/jquery-1.5.2.min.js"></script>
-	<script src="js/ajax.js"></script>
+	<script src="js/ajax.min.js"></script>
 	<script src="js/toggles.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('.comment_box:gt(4)').hide();
-			if($('.comment_box').length > 5) {
+			// Maximal 10 Bewertungen anzeigen.
+			if($('.comment_box').length > 10) {
+				$('.comment_box:gt(9)').hide();
 				$('#toggle_bewertungen').show();
 			}
 		});
 		
+		// Zeichen mitzählen, die im Bewertungsformular eingegeben werden.
 		function countChars() {
 			var len = 50 - $("#comment_text").val().length;
 			if(len == 50)
